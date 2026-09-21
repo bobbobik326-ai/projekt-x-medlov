@@ -80,11 +80,23 @@
 
   .hidden-submit{position:absolute;left:-99999px;width:1px;height:1px;opacity:0;pointer-events:none}
   .small-note{font-size:.78rem;color:var(--muted);margin-top:8px}
+ .small-note{font-size:.78rem;color:var(--muted);margin-top:8px}
 
   @media (max-width:480px){
     h1{font-size:1.8rem}
     .btn{padding:14px 8px;font-size:.98rem}
-.hero-wrap{...min-height:0;...}
+    .hero-wrap{min-height:190px}
+  }
+
+  @media (min-width:481px){
+    .hero{
+      max-height:none;
+      object-fit:contain;
+    }
+
+    .hero-wrap{
+      min-height:0;
+    }
   }
 </style>
 </head>
