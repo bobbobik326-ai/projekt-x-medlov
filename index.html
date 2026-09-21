@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f0f14">
+<title>Projekt X Medlov – 16. 10. 2026</title>
+<style>
+  :root{
+    --bg:#0f0f14; --fg:#f2f2f5; --muted:#a9a9b8; --line:#2a2a36;
+    --card:#191922; --gold:#f5c542; --yes:#22c55e; --no:#ef4444;
+    box-sizing:border-box;
+  }
+  *,*::before,*::after{box-sizing:inherit}
+  html,body{margin:0;background:var(--bg)}
+  body{color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px calc(110px + env(safe-area-inset-bottom,0px))}
+
+  .hero-wrap{position:relative;overflow:hidden;border-radius:0 0 18px 18px;background:radial-gradient(circle at 50% 35%,#313142 0,#191922 45%,#0f0f14 100%);min-height:230px;display:flex;align-items:center;justify-content:center}
+  .hero{width:100%;height:auto;max-height:380px;object-fit:cover;display:block}
+  .hero-fallback{text-align:center;padding:48px 20px}
+  .hero-fallback .x{font-size:5rem;line-height:.9;font-weight:900;color:var(--gold);letter-spacing:-.06em}
+  .hero-fallback .px{font-size:1.05rem;letter-spacing:.28em;text-transform:uppercase;color:#fff;margin-top:12px}
+
+  h1{font-size:2rem;line-height:1.1;margin:20px 0 2px;letter-spacing:.01em}
+  h1 span{color:var(--gold)}
+  .sub{color:var(--muted);margin:0 0 18px}
+  h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin:26px 0 8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}
+  .kv{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .kv:last-child{border-bottom:0}
+  .kv b{flex:0 0 74px;color:var(--muted);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+  .kv div{flex:1}
+  a{color:var(--gold)}
+  ul{margin:6px 0;padding-left:20px}
+  li{margin:3px 0}
+  .q{font-weight:600;margin:12px 0 2px}
+  .q:first-child{margin-top:0}
+  .a{color:var(--muted);margin:0}
+  .warn{border-left:3px solid var(--no);padding-left:12px;color:#ffb4b4}
+
+  .form-group{margin-bottom:16px}
+  .form-group:last-child{margin-bottom:0}
+  label{display:block;margin-bottom:6px;font-weight:600}
+  input,textarea{width:100%;background:#101017;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;font:inherit;outline:none;transition:border-color .2s ease,box-shadow .2s ease,transform .15s ease}
+  input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,197,66,.12)}
+  textarea{min-height:100px;resize:vertical}
+  input::placeholder,textarea::placeholder{color:#747485}
+
+  .rsvp{position:sticky;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);padding:14px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-top:10px;z-index:20}
+  .btns{display:flex;gap:10px}
+  .btn{flex:1;display:block;text-align:center;text-decoration:none;font-weight:700;padding:15px 10px;border-radius:13px;font-size:1.02rem;border:0;cursor:pointer;transition:transform .15s ease,filter .15s ease,opacity .15s ease;-webkit-tap-highlight-color:transparent}
+  .btn:active{transform:scale(.97)}
+  .btn:hover{filter:brightness(1.06)}
+  .btn.y{background:var(--yes);color:#0f0f14}
+  .btn.n{background:var(--no);color:#fff}
+  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .hint{text-align:center;color:var(--muted);font-size:.82rem;margin:8px 0 0}
+
+  .overlay{position:fixed;inset:0;background:rgba(15,15,20,.95);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:9999;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility .3s ease;backdrop-filter:blur(8px)}
+  .overlay.show{opacity:1;visibility:visible}
+  .check{width:92px;height:92px;border-radius:50%;background:var(--yes);color:#0f0f14;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:800;transform:scale(.3);opacity:0}
+  .overlay.show .check{animation:checkPop .55s cubic-bezier(.175,.885,.32,1.275) forwards,checkPulse 1.5s .55s ease-out}
+  .okText{margin-top:22px;font-size:1.45rem;font-weight:800;color:#fff;opacity:0;transform:translateY(12px)}
+  .overlay.show .okText{animation:textIn .4s .22s ease forwards}
+  .okSub{margin-top:6px;color:var(--muted);font-size:.95rem;opacity:0;transform:translateY(12px)}
+  .overlay.show .okSub{animation:textIn .4s .35s ease forwards}
+
+  .btn.sending{animation:buttonPulse .8s infinite}
+  @keyframes buttonPulse{0%,100%{transform:scale(1)}50%{transform:scale(.97)}}
+  @keyframes checkPop{0%{transform:scale(.3) rotate(-15deg);opacity:0}70%{transform:scale(1.12) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
+  @keyframes checkPulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}100%{box-shadow:0 0 0 28px rgba(34,197,94,0)}}
+  @keyframes textIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+  .hidden-submit{position:absolute;left:-99999px;width:1px;height:1px;opacity:0;pointer-events:none}
+  .small-note{font-size:.78rem;color:var(--muted);margin-top:8px}
+
+  @media (max-width:480px){
+    h1{font-size:1.8rem}
+    .btn{padding:14px 8px;font-size:.98rem}
+    .hero-wrap{min-height:190px}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-wrap">
+  <!-- Volitelně nahraj do stejné složky soubor hero.jpg a objeví se tvoje fotka. -->
+  <img class="hero" src="hero.jpg" alt="Projekt X" onerror="this.remove();document.getElementById('heroFallback').style.display='block'">
+  <div id="heroFallback" class="hero-fallback" style="display:none">
+    <div class="x">X</div>
+    <div class="px">Projekt X • Medlov • 16. 10. 2026</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <h1>Projekt <span>X</span></h1>
+  <p class="sub">Medlov — 16. 10. 2026</p>
+
+  <div class="card">
+    <div class="kv"><b>Kdo</b><div>Hubert Robený, Lukáš Benda, Marek Benda, Patrik Nešpurek</div></div>
+    <div class="kv"><b>Kdy</b><div>pátek 16. 10. 2026, start 16:00<br><span style="color:var(--muted)">dojít můžeš dřív i později</span></div></div>
+    <div class="kv"><b>Kde</b><div>Obecní dům Medlov, Medlov 76, 783 91<br><a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47123fba1aefeac1:0xe9a2555afcf34b64?sa=X&ved=1t:8290&ictx=111" target="_blank" rel="noopener">Otevřít v mapách →</a></div></div>
+    <div class="kv"><b>Vstupné</b><div>flaška + co uznáš za vhodné (mňamky, pití, cokoliv jiného &lt;3)</div></div>
+  </div>
+
+  <h2>Co tě čeká</h2>
+  <div class="card">
+    <ul>
+      <li>Zařízené jídlo</li>
+      <li>Pivo z čepu</li>
+      <li>Zapitky</li>
+      <li>Hudba</li>
+      <li>Foto všech společně v 18:00</li>
+    </ul>
+  </div>
+
+  <h2>Prostor a spaní</h2>
+  <div class="card">
+    <p style="margin:0 0 10px">Prostor je velký, jsou tu stoly, záchody i místnost na zamykání, kde si můžeš schovat věci. Do označených místností se neleze — kdo ví, ví. Venku je zahrada s posezením.</p>
+    <p style="margin:0">Přespat jde, ale <b>nejsou tam postele</b> — vem si spacák, karimatku a najdi místo na zemi.</p>
+  </div>
+
+  <h2>Parkování</h2>
+  <div class="card"><p style="margin:0">Kdekoliv v okolí.</p></div>
+
+  <h2>Časté otázky</h2>
+  <div class="card">
+    <p class="q">Můžu flašku na půl s kamošem?</p>
+    <p class="a">Kamo, 180 Kč tě zabije?</p>
+    <p class="q">Kdo tam všechno bude?</p>
+    <p class="a">Hodně lidí, nech se překvapit &lt;3</p>
+    <p class="q">Když se jen stavím, musím něco nosit?</p>
+    <p class="a">Bruh.</p>
+    <p class="q">Můžu tam přespat?</p>
+    <p class="a">Jo, místa je dost — ale spacák si vem sám.</p>
+    <p class="q">Můžu si tam něco pustit?</p>
+    <p class="a">Můžeš, s výjimkou totální sračky.</p>
+    <p class="q">Můžu vzít někoho s sebou?</p>
+    <p class="a">Nezvaní hosté nejsou vítaní.</p>
+  </div>
+
+  <div class="card warn">Kdo přijde během akce, aniž by to bylo domluvené s někým z oslavenců, jde pryč.</div>
+
+  <h2>Kontakt</h2>
+  <div class="card">
+    <p style="margin:0">Nic víc mě nenapadá. Kdyby co, napiš DM nebo volej:<br>
+      <a href="tel:+420777995663">+420 777 995 663</a><br>
+      IG: <a href="https://instagram.com/Robert.Still.in.process" target="_blank" rel="noopener">Robert.Still.in.process</a>
+    </p>
+  </div>
+
+  <h2>Dej vědět, jestli přijdeš</h2>
+  <div class="card">
+    <div class="form-group">
+      <label for="rName">Tvoje jméno</label>
+      <input id="rName" type="text" placeholder="Jméno a příjmení" autocomplete="name" maxlength="100">
+    </div>
+    <div class="form-group">
+      <label for="rNote">Poznámka <span style="color:var(--muted)">(nepovinné)</span></label>
+      <textarea id="rNote" placeholder="Např. dorazím později, vezmu něco s sebou…" maxlength="500"></textarea>
+    </div>
+  </div>
+
+  <div class="rsvp">
+    <div class="btns">
+      <button type="button" class="btn y" id="btnYes">✅ Přijdu</button>
+      <button type="button" class="btn n" id="btnNo">❌ Nepřijdu</button>
+    </div>
+    <p class="hint" id="rMsg">Vyplň jméno a vyber odpověď.</p>
+  </div>
+</div>
+
+<div class="overlay" id="rOverlay" aria-live="polite">
+  <div class="check">✓</div>
+  <div class="okText" id="okText">Odpověď zaznamenána!</div>
+  <div class="okSub" id="okSub">Díky ❤️</div>
+</div>
+
+<!-- Skrytý nativní formulář: žádný WhatsApp ani placený server. -->
+<iframe name="googleFormFrame" class="hidden-submit" title="Google Forms odeslání"></iframe>
+<form id="googleForm" class="hidden-submit"
+      action="https://docs.google.com/forms/d/e/1FAIpQLSeDjvk49pGKojgi81WVYhytLpSEExygSMrc844fmeJ52K1GXA/formResponse"
+      method="POST" target="googleFormFrame">
+  <input type="hidden" name="entry.1876685965" id="gName">
+  <input type="hidden" name="entry.1406329212" id="gAnswer">
+  <input type="hidden" name="entry.128515211" id="gNote">
+</form>
+
+<script>
+  const nameInput = document.getElementById('rName');
+  const noteInput = document.getElementById('rNote');
+  const btnYes = document.getElementById('btnYes');
+  const btnNo = document.getElementById('btnNo');
+  const message = document.getElementById('rMsg');
+  const overlay = document.getElementById('rOverlay');
+  const okText = document.getElementById('okText');
+  const okSub = document.getElementById('okSub');
+  const googleForm = document.getElementById('googleForm');
+  const gName = document.getElementById('gName');
+  const gAnswer = document.getElementById('gAnswer');
+  const gNote = document.getElementById('gNote');
+
+  let locked = false;
+
+  function shake(el){
+    el.animate([
+      { transform:'translateX(0)' },
+      { transform:'translateX(-6px)' },
+      { transform:'translateX(6px)' },
+      { transform:'translateX(-4px)' },
+      { transform:'translateX(0)' }
+    ], { duration:320 });
+  }
+
+  function submitRSVP(answer, clickedButton){
+    if (locked) return;
+
+    const name = nameInput.value.trim();
+    const note = noteInput.value.trim();
+
+    if (!name){
+      nameInput.focus();
+      message.textContent = 'Nejdřív napiš svoje jméno.';
+      message.style.color = 'var(--no)';
+      shake(nameInput);
+      return;
+    }
+
+    locked = true;
+    btnYes.disabled = true;
+    btnNo.disabled = true;
+    clickedButton.classList.add('sending');
+    message.textContent = 'Odesílám…';
+    message.style.color = 'var(--muted)';
+
+    // Google Forms volbu používá přesně jako je v dotazníku: Ano / ne.
+    gName.value = name;
+    gAnswer.value = answer;
+    gNote.value = note;
+
+    // Nativní POST do Google Forms přes skrytý iframe – bez CORS a bez WhatsAppu.
+    googleForm.submit();
+
+    okText.textContent = answer === 'Ano' ? 'Dorazím zapsán! 🎉' : 'Tvoje odpověď je zapsaná.';
+    okSub.textContent = answer === 'Ano' ? 'Uvidíme se v Medlově ❤️' : 'Díky za zprávu ❤️';
+    overlay.classList.add('show');
+
+    setTimeout(() => {
+      overlay.classList.remove('show');
+      message.textContent = 'Odpověď byla odeslána.';
+      message.style.color = 'var(--yes)';
+      clickedButton.classList.remove('sending');
+      btnYes.disabled = false;
+      btnNo.disabled = false;
+      locked = false;
+    }, 2600);
+  }
+
+  btnYes.addEventListener('click', () => submitRSVP('Ano', btnYes));
+  btnNo.addEventListener('click', () => submitRSVP('ne', btnNo));
+
+  nameInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      submitRSVP('Ano', btnYes);
+    }
+  });
+</script>
+</body>
+</html>
