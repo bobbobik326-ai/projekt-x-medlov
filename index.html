@@ -241,63 +241,83 @@
       filter .5s ease;
   }
 
-  /* =========================================
-     HLAVNÍ FOTKA — VŽDY UPROSTŘED
-     ========================================= */
+ ```css
+/* =========================================
+   HLAVNÍ FOTKA — HERO.JPG UPROSTŘED
+   ========================================= */
 
-  .hero-main{
-    z-index:30;
+.hero-main{
+  z-index:30;
 
-    width:58% !important;
-    height:90% !important;
+  width:52% !important;
+  height:90% !important;
 
-    left:21% !important;
-    right:auto !important;
-    top:5% !important;
-    bottom:auto !important;
+  left:50% !important;
+  right:auto !important;
+  top:5% !important;
+  bottom:auto !important;
 
-    object-fit:cover !important;
-  }
+  transform:translateX(-50%);
+  object-fit:cover !important;
+}
 
-  /* =========================================
-     LEVÁ FOTKA
-     ========================================= */
 
-  .hero-side-top{
-    z-index:20;
+/* =========================================
+   LEVÁ FOTKA
+   ========================================= */
 
-    width:38% !important;
-    height:64% !important;
+.hero-side-top{
+  z-index:20;
 
-    left:-5% !important;
-    right:auto !important;
-    top:4% !important;
-    bottom:auto !important;
+  width:34% !important;
+  height:62% !important;
 
-    object-fit:cover !important;
+  left:2% !important;
+  right:auto !important;
+  top:7% !important;
+  bottom:auto !important;
 
-    transform:rotate(-7deg);
-  }
+  object-fit:cover !important;
 
-  /* =========================================
-     PRAVÁ FOTKA
-     ========================================= */
+  transform:rotate(-7deg);
+}
 
-  .hero-side-bottom{
-    z-index:20;
 
-    width:38% !important;
-    height:64% !important;
+/* =========================================
+   PRAVÁ FOTKA
+   ========================================= */
 
-    right:-5% !important;
-    left:auto !important;
-    bottom:4% !important;
-    top:auto !important;
+.hero-side-bottom{
+  z-index:20;
 
-    object-fit:cover !important;
+  width:34% !important;
+  height:62% !important;
 
-    transform:rotate(7deg);
-  }
+  right:2% !important;
+  left:auto !important;
+  bottom:7% !important;
+  top:auto !important;
+
+  object-fit:cover !important;
+
+  transform:rotate(7deg);
+}
+
+
+/* HOVER */
+
+.hero-main:hover{
+  transform:translateX(-50%) scale(1.025);
+}
+
+.hero-side-top:hover{
+  transform:rotate(-7deg) scale(1.03);
+}
+
+.hero-side-bottom:hover{
+  transform:rotate(7deg) scale(1.03);
+}
+```
 
   /* Barevná záře pouze uvnitř hero prostoru.
      Nikdy neleze přes fotky. */
