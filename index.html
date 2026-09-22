@@ -1197,33 +1197,70 @@
       border-radius:0 0 18px 18px;
     }
 
-    .hero-wrap .hero{
-      position:absolute;
-      display:none;
-    }
+  ```css
+.hero-wrap .hero{
+  position:absolute;
+  display:block;
+  object-fit:cover;
+  border-radius:12px;
+}
 
-    .hero-main{
-      display:block !important;
+/* HLAVNÍ HERO – UPROSTŘED */
+.hero-main{
+  display:block !important;
 
-      width:100% !important;
-      height:100% !important;
+  width:68% !important;
+  height:100% !important;
 
-      left:0 !important;
-      right:auto !important;
-      top:0 !important;
-      bottom:auto !important;
+  left:50% !important;
+  right:auto !important;
+  top:0 !important;
+  bottom:auto !important;
 
-      border-radius:0;
+  transform:translateX(-50%) !important;
 
-      object-fit:cover !important;
+  border-radius:12px;
 
-      z-index:30;
-    }
+  object-fit:cover !important;
 
-    .hero-side-top,
-    .hero-side-bottom{
-      display:none !important;
-    }
+  z-index:30;
+}
+
+/* LEVÁ */
+.hero-side-top{
+  display:block !important;
+
+  width:48% !important;
+  height:76% !important;
+
+  left:-9% !important;
+  right:auto !important;
+  top:12% !important;
+  bottom:auto !important;
+
+  transform:rotate(-8deg) !important;
+
+  z-index:20;
+}
+
+/* PRAVÁ */
+.hero-side-bottom{
+  display:block !important;
+
+  width:48% !important;
+  height:76% !important;
+
+  right:-9% !important;
+  left:auto !important;
+  top:auto !important;
+  bottom:12% !important;
+
+  transform:rotate(8deg) !important;
+
+  z-index:20;
+}
+```
+
 
     .launch-title{
       font-size:4.2rem;
