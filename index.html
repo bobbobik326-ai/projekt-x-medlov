@@ -12,43 +12,7 @@
     box-sizing:border-box;
   }
   *,*::before,*::after{box-sizing:inherit}
-  /* =========================================
-   PROJECT X — CHAOS GLOW
-   ========================================= */
 
-
-body::before,
-body::after{
-  content:"";
-  position:fixed;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:-1;
-  filter:blur(90px);
-  opacity:.22;
-  animation:chaosGlow 5s ease-in-out infinite alternate;
-}
-
-body::before{
-  top:10%;
-  left:-220px;
-  background:#ff2aa6;
-}
-
-body::after{
-  bottom:5%;
-  right:-220px;
-  background:#18e0ff;
-  animation-delay:2.5s;
-}
-
-@keyframes chaosGlow{
-  0%{
-    transform:scale(.85);
-    opacity:.12;
-  }
 
   100%{
     transform:scale(1.2);
@@ -481,6 +445,7 @@ body::after{
 
   .hero-wrap{
     position:relative;
+    z-index:10;
     width:min(1200px, calc(100vw - 48px));
     height:560px;
     min-height:560px;
@@ -516,11 +481,13 @@ body::after{
   }
 
   .hero-main{
-    z-index:3;
+    z-index:30 !important;
     width:58% !important;
     height:90% !important;
-    left:21%;
-    top:5%;
+    left:21% !important;
+    top:5% !important;
+    object-fit:cover !important;
+}
     object-fit:cover !important;
   }
 
