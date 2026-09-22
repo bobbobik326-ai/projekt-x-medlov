@@ -5,454 +5,215 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f0f14">
 <title>Projekt X Medlov – 16. 10. 2026</title>
+
 <style>
   :root{
-    --bg:#0f0f14; --fg:#f2f2f5; --muted:#a9a9b8; --line:#2a2a36;
-    --card:#191922; --gold:#f5c542; --yes:#22c55e; --no:#ef4444;
+    --bg:#0f0f14;
+    --fg:#f2f2f5;
+    --muted:#a9a9b8;
+    --line:#2a2a36;
+    --card:#191922;
+    --gold:#f5c542;
+    --yes:#22c55e;
+    --no:#ef4444;
     box-sizing:border-box;
   }
-  *,*::before,*::after{box-sizing:inherit}
 
-
-  
-  html,body{margin:0;background:var(--bg)}
-  body{color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
- .wrap{
-  max-width:640px;
-  margin:0 auto;
-  padding:0 16px calc(110px + env(safe-area-inset-bottom,0px));
-  position:relative;
-  z-index:1;
-}
-  .hero-wrap{position:relative;overflow:hidden;border-radius:0 0 18px 18px;background:radial-gradient(circle at 50% 35%,#313142 0,#191922 45%,#0f0f14 100%);min-height:230px;display:flex;align-items:center;justify-content:center}
-  .hero{
-  width:100%;
-  height:auto;
-  max-height:none;
-  object-fit:contain;
-  display:block;
-}
-  .hero-fallback{text-align:center;padding:48px 20px}
-  .hero-fallback .x{font-size:5rem;line-height:.9;font-weight:900;color:var(--gold);letter-spacing:-.06em}
-  .hero-fallback .px{font-size:1.05rem;letter-spacing:.28em;text-transform:uppercase;color:#fff;margin-top:12px}
-
-  h1{font-size:2rem;line-height:1.1;margin:20px 0 2px;letter-spacing:.01em}
-  h1 span{color:var(--gold)}
-  .sub{color:var(--muted);margin:0 0 18px}
-  h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin:26px 0 8px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}
-  .kv{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
-  .kv:last-child{border-bottom:0}
-  .kv b{flex:0 0 74px;color:var(--muted);font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
-  .kv div{flex:1}
-  a{color:var(--gold)}
-  ul{margin:6px 0;padding-left:20px}
-  li{margin:3px 0}
-  .q{font-weight:600;margin:12px 0 2px}
-  .q:first-child{margin-top:0}
-  .a{color:var(--muted);margin:0}
-  .warn{border-left:3px solid var(--no);padding-left:12px;color:#ffb4b4}
-
-  .form-group{margin-bottom:16px}
-  .form-group:last-child{margin-bottom:0}
-  label{display:block;margin-bottom:6px;font-weight:600}
-  input,textarea{width:100%;background:#101017;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;font:inherit;outline:none;transition:border-color .2s ease,box-shadow .2s ease,transform .15s ease}
-  input:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,197,66,.12)}
-  textarea{min-height:100px;resize:vertical}
-  input::placeholder,textarea::placeholder{color:#747485}
-
-  .rsvp{position:sticky;bottom:0;background:linear-gradient(to top,var(--bg) 70%,transparent);padding:14px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-top:10px;z-index:20}
-  .btns{display:flex;gap:10px}
-  .btn{flex:1;display:block;text-align:center;text-decoration:none;font-weight:700;padding:15px 10px;border-radius:13px;font-size:1.02rem;border:0;cursor:pointer;transition:transform .15s ease,filter .15s ease,opacity .15s ease;-webkit-tap-highlight-color:transparent}
-  .btn:active{transform:scale(.97)}
-  .btn:hover{filter:brightness(1.06)}
-  .btn.y{background:var(--yes);color:#0f0f14}
-  .btn.n{background:var(--no);color:#fff}
-  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
-  .hint{text-align:center;color:var(--muted);font-size:.82rem;margin:8px 0 0}
-
-  .overlay{position:fixed;inset:0;background:rgba(15,15,20,.95);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:9999;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility .3s ease;backdrop-filter:blur(8px)}
-  .overlay.show{opacity:1;visibility:visible}
-  .check{width:92px;height:92px;border-radius:50%;background:var(--yes);color:#0f0f14;display:flex;align-items:center;justify-content:center;font-size:58px;font-weight:800;transform:scale(.3);opacity:0}
-  .overlay.show .check{animation:checkPop .55s cubic-bezier(.175,.885,.32,1.275) forwards,checkPulse 1.5s .55s ease-out}
-  .okText{margin-top:22px;font-size:1.45rem;font-weight:800;color:#fff;opacity:0;transform:translateY(12px)}
-  .overlay.show .okText{animation:textIn .4s .22s ease forwards}
-  .okSub{margin-top:6px;color:var(--muted);font-size:.95rem;opacity:0;transform:translateY(12px)}
-  .overlay.show .okSub{animation:textIn .4s .35s ease forwards}
-
-  .btn.sending{animation:buttonPulse .8s infinite}
-  @keyframes buttonPulse{0%,100%{transform:scale(1)}50%{transform:scale(.97)}}
-  @keyframes checkPop{0%{transform:scale(.3) rotate(-15deg);opacity:0}70%{transform:scale(1.12) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(0);opacity:1}}
-  @keyframes checkPulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}100%{box-shadow:0 0 0 28px rgba(34,197,94,0)}}
-  @keyframes textIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-  .hidden-submit{position:absolute;left:-99999px;width:1px;height:1px;opacity:0;pointer-events:none}
-  .small-note{font-size:.78rem;color:var(--muted);margin-top:8px}
- .small-note{font-size:.78rem;color:var(--muted);margin-top:8px}
-
-  @media (max-width:480px){
-    h1{font-size:1.8rem}
-    .btn{padding:14px 8px;font-size:.98rem}
-    .hero-wrap{min-height:190px}
+  *,
+  *::before,
+  *::after{
+    box-sizing:inherit;
   }
 
-  @media (min-width:481px){
-    .hero{
-      max-height:none;
-      object-fit:contain;
-    }
-
-    .hero-wrap{
-      min-height:0;
-    }
+  html,
+  body{
+    margin:0;
+    padding:0;
+    background:#0f0f14;
   }
-  /* =========================
-   PROJECT X LAUNCH SCREEN
-   ========================= */
-.px-marquee{
-  position:relative;
-  z-index:10;
-  width:100%;
-  height:42px;
-  overflow:hidden;
-  background:#050509;
-  border-top:2px solid #ff2aa6;
-  border-bottom:2px solid #18e0ff;
-  transform:rotate(-1deg) scale(1.02);
-  margin:12px 0;
-  box-shadow:
-    0 0 20px rgba(255,42,166,.55),
-    0 0 30px rgba(24,224,255,.35);
-}
 
-.px-marquee-track{
-  width:max-content;
-  white-space:nowrap;
-  padding:7px 0;
-  font-weight:900;
-  font-size:14px;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  color:#fff;
-  text-shadow:
-    0 0 8px #ff2aa6,
-    0 0 12px #18e0ff;
-  animation:pxMarquee 18s linear infinite;
-}
-
-@keyframes pxMarquee{
-  from{
-    transform:translateX(0);
+  body{
+    color:var(--fg);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    line-height:1.6;
+    font-size:16px;
+    overflow-x:hidden;
   }
-  to{
-    transform:translateX(-50%);
-  }
-}
-.launch{
-  position:fixed;
-  inset:0;
-  z-index:10000;
-  background:#07070b;
-  color:#fff;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.launch::before{
-  content:"";
-  position:absolute;
-  inset:-25%;
-  background:
-    radial-gradient(circle at 18% 30%,rgba(255,42,166,.34),transparent 27%),
-    radial-gradient(circle at 82% 25%,rgba(24,224,255,.28),transparent 25%),
-    radial-gradient(circle at 52% 82%,rgba(122,53,255,.34),transparent 28%);
-  filter:blur(35px) saturate(1.35);
-  animation:launchBg 4.2s ease-in-out both;
-}
-
-.launch-grid{
-  position:absolute;
-  inset:-30%;
-  background:
-    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
-  background-size:44px 44px;
-  transform:perspective(480px) rotateX(62deg) translateY(12%);
-  opacity:.45;
-  animation:gridMove 4.2s linear both;
-}
-
-.launch-scanlines{
-  position:absolute;
-  inset:0;
-  background:repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(255,255,255,.12) 4px
-  );
-  opacity:.17;
-  pointer-events:none;
-}
-
-.launch-photo{
-  position:absolute;
-  width:min(78vw,560px);
-  height:min(78vw,560px);
-  object-fit:cover;
-  border-radius:28px;
-  opacity:.001;
-  filter:brightness(.56) saturate(1.25) contrast(1.05);
-  transform:scale(1.32) rotate(-3deg);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.12),
-    0 0 55px rgba(255,42,166,.24),
-    0 0 95px rgba(24,224,255,.16);
-  mix-blend-mode:screen;
-  animation:photoReveal 4.2s cubic-bezier(.19,1,.22,1) both;
-}
-
-.launch-x{
-  position:absolute;
-  width:min(58vw,410px);
-  aspect-ratio:1;
-  display:grid;
-  place-items:center;
-  transform:rotate(45deg) scale(.9);
-  animation:xSpin 4.2s cubic-bezier(.19,1,.22,1) both;
-}
-
-.launch-x::before,
-.launch-x::after{
-  content:"";
-  position:absolute;
-  width:16px;
-  height:125%;
-  border-radius:999px;
-  background:linear-gradient(
-    to bottom,
-    transparent,
-    #18e0ff,
-    #fff,
-    #ff2aa6,
-    transparent
-  );
-  filter:drop-shadow(0 0 12px rgba(24,224,255,.48));
-}
-
-.launch-x::before{transform:rotate(45deg)}
-.launch-x::after{transform:rotate(-45deg)}
-
-.launch-ring{
-  position:absolute;
-  width:min(64vw,450px);
-  aspect-ratio:1;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.35);
-  box-shadow:
-    0 0 45px rgba(255,42,166,.35),
-    inset 0 0 50px rgba(24,224,255,.12);
-  animation:ringSpin 4.2s cubic-bezier(.19,1,.22,1) both;
-}
-
-.launch-ring::before,
-.launch-ring::after{
-  content:"";
-  position:absolute;
-  inset:9%;
-  border-radius:50%;
-  border:1px dashed rgba(255,255,255,.18);
-}
-
-.launch-ring::after{
-  inset:19%;
-  border:1px solid rgba(245,197,66,.32);
-  animation:ringPulse .9s ease-in-out infinite alternate;
-}
-
-.launch-content{
-  position:relative;
-  z-index:4;
-  text-align:center;
-  width:min(92vw,700px);
-  padding:24px;
-}
-
-.launch-kicker{
-  font-size:.74rem;
-  text-transform:uppercase;
-  letter-spacing:.52em;
-  margin-left:.52em;
-  color:rgba(255,255,255,.72);
-}
-
-.launch-title{
-  position:relative;
-  margin:11px 0 6px;
-  font-size:clamp(3.6rem,13vw,8rem);
-  line-height:.82;
-  font-weight:1000;
-  letter-spacing:-.075em;
-  text-transform:uppercase;
-  color:#fff;
-  text-shadow:
-    4px 0 0 rgba(255,42,166,.45),
-    -4px 0 0 rgba(24,224,255,.4),
-    0 0 28px rgba(255,255,255,.12);
-  animation:titleGlitch 4.2s steps(1,end) both;
-}
-
-.launch-sub{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-  color:rgba(255,255,255,.8);
-  font-size:.88rem;
-  text-transform:uppercase;
-  letter-spacing:.18em;
-}
-
-.launch-count{
-  margin-top:26px;
-  font-size:clamp(4.5rem,16vw,9rem);
-  line-height:.8;
-  font-weight:900;
-  letter-spacing:-.06em;
-  min-height:1em;
-}
-
-.launch-count::after{
-  content:"";
-  display:block;
-  width:92px;
-  height:3px;
-  margin:14px auto 0;
-  background:linear-gradient(
-    90deg,#18e0ff,#f5c542,#ff2aa6
-  );
-}
-
-.launch-tag{
-  margin-top:18px;
-  font-size:.78rem;
-  color:rgba(255,255,255,.52);
-  text-transform:uppercase;
-  letter-spacing:.28em;
-}
-
-.launch-flash{
-  position:absolute;
-  inset:-10%;
-  background:#fff;
-  opacity:0;
-  z-index:10;
-  pointer-events:none;
-}
-
-.launch.boom .launch-flash{
-  animation:flashBoom .6s ease-out both;
-}
-
-.launch.exit{
-  animation:launchOut .85s cubic-bezier(.76,0,.2,1) forwards;
-}
-
-@keyframes launchBg{
-  0%{transform:scale(1.28) rotate(0);opacity:.45}
-  35%{transform:scale(1.05) rotate(8deg);opacity:.78}
-  100%{transform:scale(1.02) rotate(0);opacity:.24}
-}
-
-@keyframes gridMove{
-  from{transform:perspective(480px) rotateX(62deg) translateY(18%)}
-  to{transform:perspective(480px) rotateX(62deg) translateY(6%)}
-}
-
-@keyframes photoReveal{
-  0%{
-    opacity:0;
-    transform:scale(1.38) rotate(-4deg);
-    filter:brightness(.2) saturate(2) blur(6px);
-  }
-  35%{opacity:.16}
-  70%{opacity:.2}
-  100%{
-    opacity:.06;
-    transform:scale(1.02) rotate(0);
-    filter:brightness(.62) saturate(1.35) blur(0);
-  }
-}
-
-@keyframes xSpin{
-  0%{transform:rotate(45deg) scale(.25);opacity:0}
-  24%{transform:rotate(138deg) scale(.88);opacity:1}
-  54%{transform:rotate(222deg) scale(1.02)}
-  82%{transform:rotate(315deg) scale(1)}
-  100%{transform:rotate(405deg) scale(2.25);opacity:0}
-}
-
-@keyframes ringSpin{
-  0%{transform:scale(.25) rotate(-140deg);opacity:0}
-  20%{opacity:.8}
-  100%{transform:scale(2.15) rotate(250deg);opacity:0}
-}
-
-@keyframes ringPulse{
-  from{transform:scale(.94);opacity:.28}
-  to{transform:scale(1.06);opacity:.65}
-}
-
-@keyframes titleGlitch{
-  0%,100%{transform:translate(0)}
-  14%{transform:translate(-2px,0)}
-  15%{transform:translate(2px,0)}
-  16%{transform:translate(-1px,0)}
-  17%{transform:translate(0)}
-}
-
-@keyframes flashBoom{
-  0%{opacity:0}
-  16%{opacity:.95}
-  32%{opacity:.15}
-  44%{opacity:.85}
-  100%{opacity:0}
-}
-
-@keyframes launchOut{
-  0%{opacity:1;transform:scale(1);filter:blur(0)}
-  100%{opacity:0;transform:scale(1.08);filter:blur(8px);visibility:hidden}
-}
-
-@media (max-width:480px){
-  .launch-title{font-size:4.2rem}
-  .launch-kicker{font-size:.62rem}
-  .launch-sub{font-size:.68rem}
-  .launch-tag{font-size:.64rem}
-}
 
   /* =========================================
-   PROJECT X — DESKTOP 3 PHOTO HERO
-   ========================================= */
+     HLAVNÍ OBSAH
+     ========================================= */
 
-@media (min-width:481px){
+  .wrap{
+    max-width:640px;
+    margin:0 auto;
+    padding:0 16px calc(110px + env(safe-area-inset-bottom,0px));
+    position:relative;
+    z-index:1;
+  }
+
+  h1{
+    font-size:2rem;
+    line-height:1.1;
+    margin:20px 0 2px;
+    letter-spacing:.01em;
+  }
+
+  h1 span{
+    color:var(--gold);
+  }
+
+  .sub{
+    color:var(--muted);
+    margin:0 0 18px;
+  }
+
+  h2{
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--gold);
+    margin:26px 0 8px;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-bottom:12px;
+  }
+
+  .kv{
+    display:flex;
+    gap:12px;
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .kv:last-child{
+    border-bottom:0;
+  }
+
+  .kv b{
+    flex:0 0 74px;
+    color:var(--muted);
+    font-weight:600;
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    padding-top:2px;
+  }
+
+  .kv div{
+    flex:1;
+  }
+
+  a{
+    color:var(--gold);
+  }
+
+  ul{
+    margin:6px 0;
+    padding-left:20px;
+  }
+
+  li{
+    margin:3px 0;
+  }
+
+  .q{
+    font-weight:600;
+    margin:12px 0 2px;
+  }
+
+  .q:first-child{
+    margin-top:0;
+  }
+
+  .a{
+    color:var(--muted);
+    margin:0;
+  }
+
+  .warn{
+    border-left:3px solid var(--no);
+    padding-left:12px;
+    color:#ffb4b4;
+  }
+
+  /* =========================================
+     MARQUEE
+     ========================================= */
+
+  .px-marquee{
+    position:relative;
+    z-index:50;
+    width:100%;
+    height:42px;
+    overflow:hidden;
+    background:#050509;
+    border-top:2px solid #ff2aa6;
+    border-bottom:2px solid #18e0ff;
+    transform:rotate(-1deg) scale(1.02);
+    margin:12px 0;
+
+    box-shadow:
+      0 0 20px rgba(255,42,166,.55),
+      0 0 30px rgba(24,224,255,.35);
+  }
+
+  .px-marquee-track{
+    width:max-content;
+    white-space:nowrap;
+    padding:7px 0;
+    font-weight:900;
+    font-size:14px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#fff;
+
+    text-shadow:
+      0 0 8px #ff2aa6,
+      0 0 12px #18e0ff;
+
+    animation:pxMarquee 18s linear infinite;
+  }
+
+  @keyframes pxMarquee{
+    from{
+      transform:translateX(0);
+    }
+
+    to{
+      transform:translateX(-50%);
+    }
+  }
+
+  /* =========================================
+     DESKTOP — 3 FOTKY
+     ========================================= */
 
   .hero-wrap{
     position:relative;
     z-index:10;
-    width:min(1200px, calc(100vw - 48px));
+    width:min(1200px,calc(100vw - 48px));
     height:560px;
-    min-height:560px;
     margin:0 auto;
-    display:block;
     overflow:hidden;
     border-radius:0 0 28px 28px;
 
     background:
-      radial-gradient(circle at 20% 20%,rgba(255,42,166,.22),transparent 35%),
-      radial-gradient(circle at 80% 20%,rgba(24,224,255,.18),transparent 35%),
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(255,42,166,.22),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(24,224,255,.18),
+        transparent 35%
+      ),
       #09090d;
 
     box-shadow:
@@ -463,6 +224,7 @@
   .hero-wrap .hero{
     position:absolute;
     display:block;
+
     object-fit:cover;
     border-radius:20px;
 
@@ -471,74 +233,113 @@
       contrast(1.08)
       brightness(.72);
 
-    box-shadow:0 15px 45px rgba(0,0,0,.55);
+    box-shadow:
+      0 15px 45px rgba(0,0,0,.55);
 
-    transition:transform .5s ease, filter .5s ease;
+    transition:
+      transform .5s ease,
+      filter .5s ease;
   }
 
- .hero-main{
-    z-index:30 !important;
+  /* =========================================
+     HLAVNÍ FOTKA — VŽDY UPROSTŘED
+     ========================================= */
+
+  .hero-main{
+    z-index:30;
+
     width:58% !important;
     height:90% !important;
+
     left:21% !important;
+    right:auto !important;
     top:5% !important;
+    bottom:auto !important;
+
     object-fit:cover !important;
-}
+  }
+
+  /* =========================================
+     LEVÁ FOTKA
+     ========================================= */
 
   .hero-side-top{
-    z-index:2;
+    z-index:20;
+
     width:38% !important;
     height:64% !important;
-    left:-5%;
-    top:4%;
+
+    left:-5% !important;
+    right:auto !important;
+    top:4% !important;
+    bottom:auto !important;
+
     object-fit:cover !important;
+
     transform:rotate(-7deg);
   }
 
+  /* =========================================
+     PRAVÁ FOTKA
+     ========================================= */
+
   .hero-side-bottom{
-    z-index:2;
+    z-index:20;
+
     width:38% !important;
     height:64% !important;
-    right:-5%;
-    bottom:4%;
+
+    right:-5% !important;
+    left:auto !important;
+    bottom:4% !important;
+    top:auto !important;
+
     object-fit:cover !important;
+
     transform:rotate(7deg);
   }
+
+  /* Barevná záře pouze uvnitř hero prostoru.
+     Nikdy neleze přes fotky. */
 
   .hero-wrap::before{
     content:"";
     position:absolute;
     inset:-20%;
+    z-index:1;
+    pointer-events:none;
 
     background:
-      radial-gradient(circle at 20% 50%,rgba(255,42,166,.28),transparent 28%),
-      radial-gradient(circle at 80% 50%,rgba(24,224,255,.25),transparent 28%);
+      radial-gradient(
+        circle at 15% 50%,
+        rgba(255,42,166,.28),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 85% 50%,
+        rgba(24,224,255,.25),
+        transparent 28%
+      );
 
     filter:blur(45px);
-    z-index:0;
   }
+
+  /* Spodní tmavý gradient */
 
   .hero-wrap::after{
     content:"";
     position:absolute;
     inset:0;
-    z-index:5;
+    z-index:40;
     pointer-events:none;
 
     background:
       linear-gradient(
         to bottom,
-        rgba(9,9,13,.05) 45%,
-        rgba(9,9,13,.35) 70%,
-        rgba(9,9,13,.98) 100%
+        rgba(9,9,13,.02) 40%,
+        rgba(9,9,13,.15) 65%,
+        rgba(9,9,13,.85) 100%
       );
-  }
-
-  .hero-wrap .hero:hover{
-    filter:
-      saturate(1.35)
-      contrast(1.1)
-      brightness(.9);
   }
 
   .hero-main:hover{
@@ -553,51 +354,895 @@
     transform:rotate(7deg) scale(1.03);
   }
 
-  .wrap{
-    max-width:760px;
+  /* =========================================
+     FORMULÁŘ
+     ========================================= */
+
+  .form-group{
+    margin-bottom:16px;
   }
-}
 
+  .form-group:last-child{
+    margin-bottom:0;
+  }
 
-/* =========================================
-   MOBILE — JEDNA FOTKA
-   ========================================= */
-
-@media (max-width:480px){
-
-  .hero-wrap{
-    position:relative;
-    height:190px;
-    min-height:190px;
+  label{
     display:block;
+    margin-bottom:6px;
+    font-weight:600;
   }
 
-  .hero-wrap .hero{
+  input,
+  textarea{
+    width:100%;
+    background:#101017;
+    color:var(--fg);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:13px 14px;
+    font:inherit;
+    outline:none;
+
+    transition:
+      border-color .2s ease,
+      box-shadow .2s ease,
+      transform .15s ease;
+  }
+
+  input:focus,
+  textarea:focus{
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(245,197,66,.12);
+  }
+
+  textarea{
+    min-height:100px;
+    resize:vertical;
+  }
+
+  input::placeholder,
+  textarea::placeholder{
+    color:#747485;
+  }
+
+  /* =========================================
+     RSVP
+     ========================================= */
+
+  .rsvp{
+    position:sticky;
+    bottom:0;
+    background:
+      linear-gradient(
+        to top,
+        var(--bg) 70%,
+        transparent
+      );
+
+    padding:
+      14px 0
+      calc(10px + env(safe-area-inset-bottom,0px));
+
+    margin-top:10px;
+    z-index:20;
+  }
+
+  .btns{
+    display:flex;
+    gap:10px;
+  }
+
+  .btn{
+    flex:1;
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    font-weight:700;
+    padding:15px 10px;
+    border-radius:13px;
+    font-size:1.02rem;
+    border:0;
+    cursor:pointer;
+
+    transition:
+      transform .15s ease,
+      filter .15s ease,
+      opacity .15s ease;
+
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .btn:active{
+    transform:scale(.97);
+  }
+
+  .btn:hover{
+    filter:brightness(1.06);
+  }
+
+  .btn.y{
+    background:var(--yes);
+    color:#0f0f14;
+  }
+
+  .btn.n{
+    background:var(--no);
+    color:#fff;
+  }
+
+  .btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    transform:none;
+  }
+
+  .hint{
+    text-align:center;
+    color:var(--muted);
+    font-size:.82rem;
+    margin:8px 0 0;
+  }
+
+  .btn.sending{
+    animation:buttonPulse .8s infinite;
+  }
+
+  @keyframes buttonPulse{
+    0%,100%{
+      transform:scale(1);
+    }
+
+    50%{
+      transform:scale(.97);
+    }
+  }
+
+  /* =========================================
+     RSVP OVERLAY
+     ========================================= */
+
+  .overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(15,15,20,.95);
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+
+    z-index:9999;
+
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transition:
+      opacity .3s ease,
+      visibility .3s ease;
+
+    backdrop-filter:blur(8px);
+  }
+
+  .overlay.show{
+    opacity:1;
+    visibility:visible;
+  }
+
+  .check{
+    width:92px;
+    height:92px;
+    border-radius:50%;
+    background:var(--yes);
+    color:#0f0f14;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:58px;
+    font-weight:800;
+
+    transform:scale(.3);
+    opacity:0;
+  }
+
+  .overlay.show .check{
+    animation:
+      checkPop .55s cubic-bezier(.175,.885,.32,1.275) forwards,
+      checkPulse 1.5s .55s ease-out;
+  }
+
+  .okText{
+    margin-top:22px;
+    font-size:1.45rem;
+    font-weight:800;
+    color:#fff;
+
+    opacity:0;
+    transform:translateY(12px);
+  }
+
+  .overlay.show .okText{
+    animation:textIn .4s .22s ease forwards;
+  }
+
+  .okSub{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:.95rem;
+
+    opacity:0;
+    transform:translateY(12px);
+  }
+
+  .overlay.show .okSub{
+    animation:textIn .4s .35s ease forwards;
+  }
+
+  @keyframes checkPop{
+    0%{
+      transform:scale(.3) rotate(-15deg);
+      opacity:0;
+    }
+
+    70%{
+      transform:scale(1.12) rotate(4deg);
+      opacity:1;
+    }
+
+    100%{
+      transform:scale(1) rotate(0);
+      opacity:1;
+    }
+  }
+
+  @keyframes checkPulse{
+    0%{
+      box-shadow:0 0 0 0 rgba(34,197,94,.5);
+    }
+
+    100%{
+      box-shadow:0 0 0 28px rgba(34,197,94,0);
+    }
+  }
+
+  @keyframes textIn{
+    from{
+      opacity:0;
+      transform:translateY(12px);
+    }
+
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+
+  .hidden-submit{
     position:absolute;
-    display:none;
+    left:-99999px;
+    width:1px;
+    height:1px;
+    opacity:0;
+    pointer-events:none;
   }
 
-  .hero-main{
-    display:block !important;
-    width:100% !important;
-    height:100% !important;
-    left:0;
-    top:0;
-    border-radius:0;
-    object-fit:cover !important;
+  /* =========================================
+     PROJECT X LAUNCH SCREEN
+     ========================================= */
+
+  .launch{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+
+    background:#07070b;
+    color:#fff;
+
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
 
-}
+  .launch::before{
+    content:"";
+    position:absolute;
+    inset:-25%;
+
+    background:
+      radial-gradient(
+        circle at 18% 30%,
+        rgba(255,42,166,.34),
+        transparent 27%
+      ),
+      radial-gradient(
+        circle at 82% 25%,
+        rgba(24,224,255,.28),
+        transparent 25%
+      ),
+      radial-gradient(
+        circle at 52% 82%,
+        rgba(122,53,255,.34),
+        transparent 28%
+      );
+
+    filter:blur(35px) saturate(1.35);
+
+    animation:launchBg 4.2s ease-in-out both;
+  }
+
+  .launch-grid{
+    position:absolute;
+    inset:-30%;
+
+    background:
+      linear-gradient(
+        rgba(255,255,255,.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(255,255,255,.05) 1px,
+        transparent 1px
+      );
+
+    background-size:44px 44px;
+
+    transform:
+      perspective(480px)
+      rotateX(62deg)
+      translateY(12%);
+
+    opacity:.45;
+
+    animation:gridMove 4.2s linear both;
+  }
+
+  .launch-scanlines{
+    position:absolute;
+    inset:0;
+
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(255,255,255,.12) 4px
+      );
+
+    opacity:.17;
+    pointer-events:none;
+  }
+
+  .launch-photo{
+    position:absolute;
+
+    width:min(78vw,560px);
+    height:min(78vw,560px);
+
+    object-fit:cover;
+
+    border-radius:28px;
+
+    opacity:.001;
+
+    filter:
+      brightness(.56)
+      saturate(1.25)
+      contrast(1.05);
+
+    transform:
+      scale(1.32)
+      rotate(-3deg);
+
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.12),
+      0 0 55px rgba(255,42,166,.24),
+      0 0 95px rgba(24,224,255,.16);
+
+    mix-blend-mode:screen;
+
+    animation:
+      photoReveal
+      4.2s
+      cubic-bezier(.19,1,.22,1)
+      both;
+  }
+
+  .launch-x{
+    position:absolute;
+
+    width:min(58vw,410px);
+    aspect-ratio:1;
+
+    display:grid;
+    place-items:center;
+
+    transform:
+      rotate(45deg)
+      scale(.9);
+
+    animation:
+      xSpin
+      4.2s
+      cubic-bezier(.19,1,.22,1)
+      both;
+  }
+
+  .launch-x::before,
+  .launch-x::after{
+    content:"";
+
+    position:absolute;
+
+    width:16px;
+    height:125%;
+
+    border-radius:999px;
+
+    background:
+      linear-gradient(
+        to bottom,
+        transparent,
+        #18e0ff,
+        #fff,
+        #ff2aa6,
+        transparent
+      );
+
+    filter:
+      drop-shadow(
+        0 0 12px
+        rgba(24,224,255,.48)
+      );
+  }
+
+  .launch-x::before{
+    transform:rotate(45deg);
+  }
+
+  .launch-x::after{
+    transform:rotate(-45deg);
+  }
+
+  .launch-ring{
+    position:absolute;
+
+    width:min(64vw,450px);
+    aspect-ratio:1;
+
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.35);
+
+    box-shadow:
+      0 0 45px rgba(255,42,166,.35),
+      inset 0 0 50px rgba(24,224,255,.12);
+
+    animation:
+      ringSpin
+      4.2s
+      cubic-bezier(.19,1,.22,1)
+      both;
+  }
+
+  .launch-ring::before,
+  .launch-ring::after{
+    content:"";
+
+    position:absolute;
+    inset:9%;
+
+    border-radius:50%;
+
+    border:1px dashed rgba(255,255,255,.18);
+  }
+
+  .launch-ring::after{
+    inset:19%;
+
+    border:1px solid rgba(245,197,66,.32);
+
+    animation:
+      ringPulse
+      .9s
+      ease-in-out
+      infinite
+      alternate;
+  }
+
+  .launch-content{
+    position:relative;
+    z-index:4;
+
+    text-align:center;
+
+    width:min(92vw,700px);
+
+    padding:24px;
+  }
+
+  .launch-kicker{
+    font-size:.74rem;
+    text-transform:uppercase;
+    letter-spacing:.52em;
+    margin-left:.52em;
+
+    color:rgba(255,255,255,.72);
+  }
+
+  .launch-title{
+    position:relative;
+
+    margin:11px 0 6px;
+
+    font-size:clamp(3.6rem,13vw,8rem);
+    line-height:.82;
+
+    font-weight:1000;
+    letter-spacing:-.075em;
+
+    text-transform:uppercase;
+
+    color:#fff;
+
+    text-shadow:
+      4px 0 0 rgba(255,42,166,.45),
+      -4px 0 0 rgba(24,224,255,.4),
+      0 0 28px rgba(255,255,255,.12);
+
+    animation:
+      titleGlitch
+      4.2s
+      steps(1,end)
+      both;
+  }
+
+  .launch-sub{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+
+    color:rgba(255,255,255,.8);
+
+    font-size:.88rem;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+  }
+
+  .launch-count{
+    margin-top:26px;
+
+    font-size:clamp(4.5rem,16vw,9rem);
+    line-height:.8;
+
+    font-weight:900;
+    letter-spacing:-.06em;
+
+    min-height:1em;
+  }
+
+  .launch-count::after{
+    content:"";
+    display:block;
+
+    width:92px;
+    height:3px;
+
+    margin:14px auto 0;
+
+    background:
+      linear-gradient(
+        90deg,
+        #18e0ff,
+        #f5c542,
+        #ff2aa6
+      );
+  }
+
+  .launch-tag{
+    margin-top:18px;
+
+    font-size:.78rem;
+
+    color:rgba(255,255,255,.52);
+
+    text-transform:uppercase;
+    letter-spacing:.28em;
+  }
+
+  .launch-flash{
+    position:absolute;
+    inset:-10%;
+
+    background:#fff;
+
+    opacity:0;
+
+    z-index:10;
+
+    pointer-events:none;
+  }
+
+  .launch.boom .launch-flash{
+    animation:flashBoom .6s ease-out both;
+  }
+
+  .launch.exit{
+    animation:
+      launchOut
+      .85s
+      cubic-bezier(.76,0,.2,1)
+      forwards;
+  }
+
+  @keyframes launchBg{
+    0%{
+      transform:scale(1.28) rotate(0);
+      opacity:.45;
+    }
+
+    35%{
+      transform:scale(1.05) rotate(8deg);
+      opacity:.78;
+    }
+
+    100%{
+      transform:scale(1.02) rotate(0);
+      opacity:.24;
+    }
+  }
+
+  @keyframes gridMove{
+    from{
+      transform:
+        perspective(480px)
+        rotateX(62deg)
+        translateY(18%);
+    }
+
+    to{
+      transform:
+        perspective(480px)
+        rotateX(62deg)
+        translateY(6%);
+    }
+  }
+
+  @keyframes photoReveal{
+    0%{
+      opacity:0;
+      transform:scale(1.38) rotate(-4deg);
+      filter:
+        brightness(.2)
+        saturate(2)
+        blur(6px);
+    }
+
+    35%{
+      opacity:.16;
+    }
+
+    70%{
+      opacity:.2;
+    }
+
+    100%{
+      opacity:.06;
+      transform:scale(1.02) rotate(0);
+      filter:
+        brightness(.62)
+        saturate(1.35)
+        blur(0);
+    }
+  }
+
+  @keyframes xSpin{
+    0%{
+      transform:rotate(45deg) scale(.25);
+      opacity:0;
+    }
+
+    24%{
+      transform:rotate(138deg) scale(.88);
+      opacity:1;
+    }
+
+    54%{
+      transform:rotate(222deg) scale(1.02);
+    }
+
+    82%{
+      transform:rotate(315deg) scale(1);
+    }
+
+    100%{
+      transform:rotate(405deg) scale(2.25);
+      opacity:0;
+    }
+  }
+
+  @keyframes ringSpin{
+    0%{
+      transform:scale(.25) rotate(-140deg);
+      opacity:0;
+    }
+
+    20%{
+      opacity:.8;
+    }
+
+    100%{
+      transform:scale(2.15) rotate(250deg);
+      opacity:0;
+    }
+  }
+
+  @keyframes ringPulse{
+    from{
+      transform:scale(.94);
+      opacity:.28;
+    }
+
+    to{
+      transform:scale(1.06);
+      opacity:.65;
+    }
+  }
+
+  @keyframes titleGlitch{
+    0%,100%{
+      transform:translate(0);
+    }
+
+    14%{
+      transform:translate(-2px,0);
+    }
+
+    15%{
+      transform:translate(2px,0);
+    }
+
+    16%{
+      transform:translate(-1px,0);
+    }
+
+    17%{
+      transform:translate(0);
+    }
+  }
+
+  @keyframes flashBoom{
+    0%{
+      opacity:0;
+    }
+
+    16%{
+      opacity:.95;
+    }
+
+    32%{
+      opacity:.15;
+    }
+
+    44%{
+      opacity:.85;
+    }
+
+    100%{
+      opacity:0;
+    }
+  }
+
+  @keyframes launchOut{
+    0%{
+      opacity:1;
+      transform:scale(1);
+      filter:blur(0);
+    }
+
+    100%{
+      opacity:0;
+      transform:scale(1.08);
+      filter:blur(8px);
+      visibility:hidden;
+    }
+  }
+
+  /* =========================================
+     MOBILE
+     ========================================= */
+
+  @media (max-width:480px){
+
+    h1{
+      font-size:1.8rem;
+    }
+
+    .btn{
+      padding:14px 8px;
+      font-size:.98rem;
+    }
+
+    .hero-wrap{
+      width:100%;
+      height:190px;
+      min-height:190px;
+      margin:0;
+      border-radius:0 0 18px 18px;
+    }
+
+    .hero-wrap .hero{
+      position:absolute;
+      display:none;
+    }
+
+    .hero-main{
+      display:block !important;
+
+      width:100% !important;
+      height:100% !important;
+
+      left:0 !important;
+      right:auto !important;
+      top:0 !important;
+      bottom:auto !important;
+
+      border-radius:0;
+
+      object-fit:cover !important;
+
+      z-index:30;
+    }
+
+    .hero-side-top,
+    .hero-side-bottom{
+      display:none !important;
+    }
+
+    .launch-title{
+      font-size:4.2rem;
+    }
+
+    .launch-kicker{
+      font-size:.62rem;
+    }
+
+    .launch-sub{
+      font-size:.68rem;
+    }
+
+    .launch-tag{
+      font-size:.64rem;
+    }
+  }
+
+  @media (min-width:481px){
+
+    .wrap{
+      max-width:760px;
+    }
+  }
+
 </style>
 </head>
+
 <body>
-  <!-- PROJECT X LAUNCH SCREEN -->
+
+<!-- =========================================
+     PROJECT X LAUNCH SCREEN
+     ========================================= -->
+
 <div class="launch" id="launchScreen">
 
   <div class="launch-grid"></div>
   <div class="launch-scanlines"></div>
 
-  <!-- tvoje fotka -->
   <img
     class="launch-photo"
     src="hero.jpg"
@@ -636,26 +1281,52 @@
   <div class="launch-flash"></div>
 
 </div>
+
+
+<!-- =========================================
+     MARQUEE
+     ========================================= -->
+
 <div class="px-marquee">
   <div class="px-marquee-track">
-    PROJECT X • MEDLOV • 16.10.2026 • DRINK RESPONSIBLY? • ABSOLUTELY NOT • ONE NIGHT • ZERO REGRETS • LOUD MUSIC • BAD DECISIONS • GOOD MEMORIES • WHAT COULD GO WRONG? •
-    PROJECT X • MEDLOV • 16.10.2026 • DRINK RESPONSIBLY? • ABSOLUTELY NOT • ONE NIGHT • ZERO REGRETS • LOUD MUSIC • BAD DECISIONS • GOOD MEMORIES • WHAT COULD GO WRONG? •
+
+    PROJECT X • MEDLOV • 16.10.2026 •
+    DRINK RESPONSIBLY? • ABSOLUTELY NOT •
+    ONE NIGHT • ZERO REGRETS •
+    LOUD MUSIC • BAD DECISIONS •
+    GOOD MEMORIES • WHAT COULD GO WRONG? •
+
+    PROJECT X • MEDLOV • 16.10.2026 •
+    DRINK RESPONSIBLY? • ABSOLUTELY NOT •
+    ONE NIGHT • ZERO REGRETS •
+    LOUD MUSIC • BAD DECISIONS •
+    GOOD MEMORIES • WHAT COULD GO WRONG? •
+
   </div>
 </div>
+
+
+<!-- =========================================
+     3 FOTKY
+     ========================================= -->
+
 <div class="hero-wrap">
 
+  <!-- HLAVNÍ — UPROSTŘED -->
   <img
     class="hero hero-main"
     src="769385114_1965387234133189_3796186970598074553_n.jpg"
     alt="Party photo"
   >
 
+  <!-- LEVÁ -->
   <img
     class="hero hero-side-top"
     src="813831996_1242208591414248_8481654426959537979_n.jpg"
     alt="Party photo"
   >
 
+  <!-- PRAVÁ -->
   <img
     class="hero hero-side-bottom"
     src="818442685_1799934437813736_8847658295966910339_n.jpg"
@@ -665,19 +1336,68 @@
 </div>
 
 
+<!-- =========================================
+     OBSAH
+     ========================================= -->
+
 <div class="wrap">
+
   <h1>Projekt <span>X</span></h1>
-  <p class="sub">Medlov — 16. 10. 2026</p>
+
+  <p class="sub">
+    Medlov — 16. 10. 2026
+  </p>
+
 
   <div class="card">
-    <div class="kv"><b>Kdo</b><div>Hubert Robený, Lukáš Benda, Marek Benda, Patrik Nešpurek</div></div>
-    <div class="kv"><b>Kdy</b><div>pátek 16. 10. 2026, start 16:00<br><span style="color:var(--muted)">dojít můžeš dřív i později</span></div></div>
-    <div class="kv"><b>Kde</b><div>Obecní dům Medlov, Medlov 76, 783 91<br><a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47123fba1aefeac1:0xe9a2555afcf34b64?sa=X&ved=1t:8290&ictx=111" target="_blank" rel="noopener">Otevřít v mapách →</a></div></div>
-    <div class="kv"><b>Vstupné</b><div>flaška + co uznáš za vhodné (mňamky, pití, cokoliv jiného &lt;3)</div></div>
+
+    <div class="kv">
+      <b>Kdo</b>
+      <div>
+        Hubert Robený, Lukáš Benda, Marek Benda, Patrik Nešpurek
+      </div>
+    </div>
+
+    <div class="kv">
+      <b>Kdy</b>
+      <div>
+        pátek 16. 10. 2026, start 16:00<br>
+        <span style="color:var(--muted)">
+          dojít můžeš dřív i později
+        </span>
+      </div>
+    </div>
+
+    <div class="kv">
+      <b>Kde</b>
+      <div>
+        Obecní dům Medlov, Medlov 76, 783 91<br>
+
+        <a
+          href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47123fba1aefeac1:0xe9a2555afcf34b64?sa=X&ved=1t:8290&ictx=111"
+          target="_blank"
+          rel="noopener"
+        >
+          Otevřít v mapách →
+        </a>
+      </div>
+    </div>
+
+    <div class="kv">
+      <b>Vstupné</b>
+      <div>
+        flaška + co uznáš za vhodné
+        (mňamky, pití, cokoliv jiného &lt;3)
+      </div>
+    </div>
+
   </div>
 
+
   <h2>Co tě čeká</h2>
+
   <div class="card">
+
     <ul>
       <li>Zařízené jídlo</li>
       <li>Pivo z čepu</li>
@@ -685,207 +1405,555 @@
       <li>Hudba</li>
       <li>Foto všech společně v 18:00</li>
     </ul>
+
   </div>
+
 
   <h2>Prostor a spaní</h2>
+
   <div class="card">
-    <p style="margin:0 0 10px">Prostor je velký, jsou tu stoly, záchody i místnost na zamykání, kde si můžeš schovat věci. Do označených místností se neleze — kdo ví, ví. Venku je zahrada s posezením.</p>
-    <p style="margin:0">Přespat jde, ale <b>nejsou tam postele</b> — vem si spacák, karimatku a najdi místo na zemi.</p>
+
+    <p style="margin:0 0 10px">
+      Prostor je velký, jsou tu stoly, záchody i místnost na zamykání,
+      kde si můžeš schovat věci. Do označených místností se neleze —
+      kdo ví, ví. Venku je zahrada s posezením.
+    </p>
+
+    <p style="margin:0">
+      Přespat jde, ale <b>nejsou tam postele</b> —
+      vem si spacák, karimatku a najdi místo na zemi.
+    </p>
+
   </div>
+
 
   <h2>Parkování</h2>
-  <div class="card"><p style="margin:0">Kdekoliv v okolí.</p></div>
+
+  <div class="card">
+
+    <p style="margin:0">
+      Kdekoliv v okolí.
+    </p>
+
+  </div>
+
 
   <h2>Časté otázky</h2>
+
   <div class="card">
-    <p class="q">Můžu flašku na půl s kamošem?</p>
-    <p class="a">Kamo, 180 Kč tě zabije?</p>
-    <p class="q">Kdo tam všechno bude?</p>
-    <p class="a">Hodně lidí, nech se překvapit &lt;3</p>
-    <p class="q">Když se jen stavím, musím něco nosit?</p>
-    <p class="a">Bruh.</p>
-    <p class="q">Můžu tam přespat?</p>
-    <p class="a">Jo, místa je dost — ale spacák si vem sám.</p>
-    <p class="q">Můžu si tam něco pustit?</p>
-    <p class="a">Můžeš, s výjimkou totální sračky.</p>
-    <p class="q">Můžu vzít někoho s sebou?</p>
-    <p class="a">Nezvaní hosté nejsou vítaní.</p>
+
+    <p class="q">
+      Můžu flašku na půl s kamošem?
+    </p>
+
+    <p class="a">
+      Kamo, 180 Kč tě zabije?
+    </p>
+
+
+    <p class="q">
+      Kdo tam všechno bude?
+    </p>
+
+    <p class="a">
+      Hodně lidí, nech se překvapit &lt;3
+    </p>
+
+
+    <p class="q">
+      Když se jen stavím, musím něco nosit?
+    </p>
+
+    <p class="a">
+      Bruh.
+    </p>
+
+
+    <p class="q">
+      Můžu tam přespat?
+    </p>
+
+    <p class="a">
+      Jo, místa je dost — ale spacák si vem sám.
+    </p>
+
+
+    <p class="q">
+      Můžu si tam něco pustit?
+    </p>
+
+    <p class="a">
+      Můžeš, s výjimkou totální sračky.
+    </p>
+
+
+    <p class="q">
+      Můžu vzít někoho s sebou?
+    </p>
+
+    <p class="a">
+      Nezvaní hosté nejsou vítaní.
+    </p>
+
   </div>
 
-  <div class="card warn">Kdo přijde během akce, aniž by to bylo domluvené s někým z oslavenců, jde pryč.</div>
+
+  <div class="card warn">
+
+    Kdo přijde během akce, aniž by to bylo domluvené
+    s někým z oslavenců, jde pryč.
+
+  </div>
+
 
   <h2>Kontakt</h2>
+
   <div class="card">
-    <p style="margin:0">Nic víc mě nenapadá. Kdyby co, napiš DM nebo volej:<br>
-      <a href="tel:+420777995663">+420 777 995 663</a><br>
-      IG: <a href="https://instagram.com/Robert.Still.in.process" target="_blank" rel="noopener">Robert.Still.in.process</a>
+
+    <p style="margin:0">
+
+      Nic víc mě nenapadá. Kdyby co,
+      napiš DM nebo volej:<br>
+
+      <a href="tel:+420777995663">
+        +420 777 995 663
+      </a><br>
+
+      IG:
+      <a
+        href="https://instagram.com/Robert.Still.in.process"
+        target="_blank"
+        rel="noopener"
+      >
+        Robert.Still.in.process
+      </a>
+
     </p>
+
   </div>
+
 
   <h2>Dej vědět, jestli přijdeš</h2>
+
   <div class="card">
+
     <div class="form-group">
-      <label for="rName">Tvoje jméno</label>
-      <input id="rName" type="text" placeholder="Jméno a příjmení" autocomplete="name" maxlength="100">
+
+      <label for="rName">
+        Tvoje jméno
+      </label>
+
+      <input
+        id="rName"
+        type="text"
+        placeholder="Jméno a příjmení"
+        autocomplete="name"
+        maxlength="100"
+      >
+
     </div>
+
+
     <div class="form-group">
-      <label for="rNote">Poznámka <span style="color:var(--muted)">(nepovinné)</span></label>
-      <textarea id="rNote" placeholder="Např. dorazím později, vezmu něco s sebou…" maxlength="500"></textarea>
+
+      <label for="rNote">
+        Poznámka
+        <span style="color:var(--muted)">
+          (nepovinné)
+        </span>
+      </label>
+
+      <textarea
+        id="rNote"
+        placeholder="Např. dorazím později, vezmu něco s sebou…"
+        maxlength="500"
+      ></textarea>
+
     </div>
+
   </div>
+
 
   <div class="rsvp">
+
     <div class="btns">
-      <button type="button" class="btn y" id="btnYes">✅ Přijdu</button>
-      <button type="button" class="btn n" id="btnNo">❌ Nepřijdu</button>
+
+      <button
+        type="button"
+        class="btn y"
+        id="btnYes"
+      >
+        ✅ Přijdu
+      </button>
+
+      <button
+        type="button"
+        class="btn n"
+        id="btnNo"
+      >
+        ❌ Nepřijdu
+      </button>
+
     </div>
-    <p class="hint" id="rMsg">Vyplň jméno a vyber odpověď.</p>
+
+    <p
+      class="hint"
+      id="rMsg"
+    >
+      Vyplň jméno a vyber odpověď.
+    </p>
+
   </div>
+
 </div>
 
-<div class="overlay" id="rOverlay" aria-live="polite">
-  <div class="check">✓</div>
-  <div class="okText" id="okText">Odpověď zaznamenána!</div>
-  <div class="okSub" id="okSub">Díky ❤️</div>
+
+<!-- =========================================
+     RSVP OVERLAY
+     ========================================= -->
+
+<div
+  class="overlay"
+  id="rOverlay"
+  aria-live="polite"
+>
+
+  <div class="check">
+    ✓
+  </div>
+
+  <div
+    class="okText"
+    id="okText"
+  >
+    Odpověď zaznamenána!
+  </div>
+
+  <div
+    class="okSub"
+    id="okSub"
+  >
+    Díky ❤️
+  </div>
+
 </div>
 
-<!-- Skrytý nativní formulář: žádný WhatsApp ani placený server. -->
-<iframe name="googleFormFrame" class="hidden-submit" title="Google Forms odeslání"></iframe>
-<form id="googleForm" class="hidden-submit"
-      action="https://docs.google.com/forms/d/e/1FAIpQLSeDjvk49pGKojgi81WVYhytLpSEExygSMrc844fmeJ52K1GXA/formResponse"
-      method="POST" target="googleFormFrame">
-  <input type="hidden" name="entry.1876685965" id="gName">
-  <input type="hidden" name="entry.1406329212" id="gAnswer">
-  <input type="hidden" name="entry.128515211" id="gNote">
+
+<!-- =========================================
+     GOOGLE FORMS
+     ========================================= -->
+
+<iframe
+  name="googleFormFrame"
+  class="hidden-submit"
+  title="Google Forms odeslání"
+></iframe>
+
+<form
+  id="googleForm"
+  class="hidden-submit"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSeDjvk49pGKojgi81WVYhytLpSEExygSMrc844fmeJ52K1GXA/formResponse"
+  method="POST"
+  target="googleFormFrame"
+>
+
+  <input
+    type="hidden"
+    name="entry.1876685965"
+    id="gName"
+  >
+
+  <input
+    type="hidden"
+    name="entry.1406329212"
+    id="gAnswer"
+  >
+
+  <input
+    type="hidden"
+    name="entry.128515211"
+    id="gNote"
+  >
+
 </form>
 
+
 <script>
-  const nameInput = document.getElementById('rName');
-  const noteInput = document.getElementById('rNote');
-  const btnYes = document.getElementById('btnYes');
-  const btnNo = document.getElementById('btnNo');
-  const message = document.getElementById('rMsg');
-  const overlay = document.getElementById('rOverlay');
-  const okText = document.getElementById('okText');
-  const okSub = document.getElementById('okSub');
-  const googleForm = document.getElementById('googleForm');
-  const gName = document.getElementById('gName');
-  const gAnswer = document.getElementById('gAnswer');
-  const gNote = document.getElementById('gNote');
+
+  /* =========================================
+     RSVP
+     ========================================= */
+
+  const nameInput =
+    document.getElementById('rName');
+
+  const noteInput =
+    document.getElementById('rNote');
+
+  const btnYes =
+    document.getElementById('btnYes');
+
+  const btnNo =
+    document.getElementById('btnNo');
+
+  const message =
+    document.getElementById('rMsg');
+
+  const overlay =
+    document.getElementById('rOverlay');
+
+  const okText =
+    document.getElementById('okText');
+
+  const okSub =
+    document.getElementById('okSub');
+
+  const googleForm =
+    document.getElementById('googleForm');
+
+  const gName =
+    document.getElementById('gName');
+
+  const gAnswer =
+    document.getElementById('gAnswer');
+
+  const gNote =
+    document.getElementById('gNote');
+
 
   let locked = false;
 
+
   function shake(el){
-    el.animate([
-      { transform:'translateX(0)' },
-      { transform:'translateX(-6px)' },
-      { transform:'translateX(6px)' },
-      { transform:'translateX(-4px)' },
-      { transform:'translateX(0)' }
-    ], { duration:320 });
+
+    el.animate(
+      [
+        { transform:'translateX(0)' },
+        { transform:'translateX(-6px)' },
+        { transform:'translateX(6px)' },
+        { transform:'translateX(-4px)' },
+        { transform:'translateX(0)' }
+      ],
+      {
+        duration:320
+      }
+    );
+
   }
 
-  function submitRSVP(answer, clickedButton){
-    if (locked) return;
 
-    const name = nameInput.value.trim();
-    const note = noteInput.value.trim();
+  function submitRSVP(answer,clickedButton){
 
-    if (!name){
+    if(locked) return;
+
+
+    const name =
+      nameInput.value.trim();
+
+    const note =
+      noteInput.value.trim();
+
+
+    if(!name){
+
       nameInput.focus();
-      message.textContent = 'Nejdřív napiš svoje jméno.';
-      message.style.color = 'var(--no)';
+
+      message.textContent =
+        'Nejdřív napiš svoje jméno.';
+
+      message.style.color =
+        'var(--no)';
+
       shake(nameInput);
+
       return;
     }
 
+
     locked = true;
+
     btnYes.disabled = true;
     btnNo.disabled = true;
-    clickedButton.classList.add('sending');
-    message.textContent = 'Odesílám…';
-    message.style.color = 'var(--muted)';
 
-    // Google Forms volbu používá přesně jako je v dotazníku: Ano / ne.
+    clickedButton.classList.add('sending');
+
+    message.textContent =
+      'Odesílám…';
+
+    message.style.color =
+      'var(--muted)';
+
+
     gName.value = name;
     gAnswer.value = answer;
     gNote.value = note;
 
-    // Nativní POST do Google Forms přes skrytý iframe – bez CORS a bez WhatsAppu.
+
     googleForm.submit();
 
-    okText.textContent = answer === 'Ano' ? 'Dorazím zapsán! 🎉' : 'Tvoje odpověď je zapsaná.';
-    okSub.textContent = answer === 'Ano' ? 'Uvidíme se v Medlově ❤️' : 'Díky za zprávu ❤️';
+
+    okText.textContent =
+      answer === 'Ano'
+        ? 'Dorazím zapsán! 🎉'
+        : 'Tvoje odpověď je zapsaná.';
+
+    okSub.textContent =
+      answer === 'Ano'
+        ? 'Uvidíme se v Medlově ❤️'
+        : 'Díky za zprávu ❤️';
+
+
     overlay.classList.add('show');
 
+
     setTimeout(() => {
+
       overlay.classList.remove('show');
-      message.textContent = 'Odpověď byla odeslána.';
-      message.style.color = 'var(--yes)';
+
+      message.textContent =
+        'Odpověď byla odeslána.';
+
+      message.style.color =
+        'var(--yes)';
+
       clickedButton.classList.remove('sending');
+
       btnYes.disabled = false;
       btnNo.disabled = false;
+
       locked = false;
-    }, 2600);
+
+    },2600);
+
   }
 
-  btnYes.addEventListener('click', () => submitRSVP('Ano', btnYes));
-  btnNo.addEventListener('click', () => submitRSVP('Ne', btnNo));
 
-  nameInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      submitRSVP('Ano', btnYes);
+  btnYes.addEventListener(
+    'click',
+    () => submitRSVP('Ano',btnYes)
+  );
+
+
+  btnNo.addEventListener(
+    'click',
+    () => submitRSVP('Ne',btnNo)
+  );
+
+
+  nameInput.addEventListener(
+    'keydown',
+    (event) => {
+
+      if(event.key === 'Enter'){
+
+        event.preventDefault();
+
+        submitRSVP('Ano',btnYes);
+
+      }
+
     }
-  });
-  /* =========================
-     PROJECT X LAUNCH
-     ========================= */
+  );
 
-  const launchScreen = document.getElementById('launchScreen');
-  const launchCount = document.getElementById('launchCount');
-  const launchFlash = document.querySelector('.launch-flash');
+
+  /* =========================================
+     PROJECT X LAUNCH
+     ========================================= */
+
+  const launchScreen =
+    document.getElementById('launchScreen');
+
+  const launchCount =
+    document.getElementById('launchCount');
+
+  const launchFlash =
+    document.querySelector('.launch-flash');
+
 
   function runProjectXLaunch(){
 
-    if (!launchScreen || !launchCount) return;
+    if(!launchScreen || !launchCount){
+      return;
+    }
 
-    /* Start explicitly so GitHub/browser rendering cannot skip it. */
-    launchScreen.style.display = 'flex';
-    launchScreen.style.opacity = '1';
-    launchScreen.style.visibility = 'visible';
+
+    launchScreen.style.display =
+      'flex';
+
+    launchScreen.style.opacity =
+      '1';
+
+    launchScreen.style.visibility =
+      'visible';
+
 
     const countPulse = () => {
+
       launchCount.animate(
         [
-          { transform:'scale(.55)', opacity:0, filter:'blur(8px)' },
-          { transform:'scale(1.12)', opacity:1, filter:'blur(0)' },
-          { transform:'scale(1)', opacity:1 }
+          {
+            transform:'scale(.55)',
+            opacity:0,
+            filter:'blur(8px)'
+          },
+          {
+            transform:'scale(1.12)',
+            opacity:1,
+            filter:'blur(0)'
+          },
+          {
+            transform:'scale(1)',
+            opacity:1
+          }
         ],
         {
           duration:460,
           easing:'cubic-bezier(.19,1,.22,1)'
         }
       );
+
     };
 
-    setTimeout(() => {
-      launchCount.textContent = '2';
-      countPulse();
-    }, 900);
 
     setTimeout(() => {
-      launchCount.textContent = '1';
+
+      launchCount.textContent =
+        '2';
+
       countPulse();
-    }, 1800);
+
+    },900);
+
 
     setTimeout(() => {
-      launchCount.textContent = 'GO';
+
+      launchCount.textContent =
+        '1';
+
+      countPulse();
+
+    },1800);
+
+
+    setTimeout(() => {
+
+      launchCount.textContent =
+        'GO';
+
+
       launchCount.animate(
         [
-          { transform:'scale(.45) rotate(-4deg)', opacity:0 },
-          { transform:'scale(1.3) rotate(2deg)', opacity:1 },
-          { transform:'scale(1)' }
+          {
+            transform:'scale(.45) rotate(-4deg)',
+            opacity:0
+          },
+          {
+            transform:'scale(1.3) rotate(2deg)',
+            opacity:1
+          },
+          {
+            transform:'scale(1)'
+          }
         ],
         {
           duration:650,
@@ -893,27 +1961,50 @@
         }
       );
 
+
       launchScreen.classList.add('boom');
 
-      if (launchFlash){
-        launchFlash.style.animation = 'flashBoom .65s ease-out both';
+
+      if(launchFlash){
+
+        launchFlash.style.animation =
+          'flashBoom .65s ease-out both';
+
       }
-    }, 2750);
+
+    },2750);
+
 
     setTimeout(() => {
+
       launchScreen.classList.add('exit');
-    }, 3550);
+
+    },3550);
+
 
     setTimeout(() => {
+
       launchScreen.remove();
-    }, 4550);
+
+    },4550);
+
   }
 
-  if (document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', runProjectXLaunch);
-  } else {
+
+  if(document.readyState === 'loading'){
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      runProjectXLaunch
+    );
+
+  }else{
+
     runProjectXLaunch();
+
   }
+
 </script>
+
 </body>
 </html>
