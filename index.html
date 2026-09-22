@@ -16,10 +16,6 @@
    PROJECT X — CHAOS GLOW
    ========================================= */
 
-body{
-  position:relative;
-  overflow-x:hidden;
-}
 
 body::before,
 body::after{
@@ -29,7 +25,7 @@ body::after{
   height:420px;
   border-radius:50%;
   pointer-events:none;
-  z-index:2;
+  z-index:-1;
   filter:blur(90px);
   opacity:.22;
   animation:chaosGlow 5s ease-in-out infinite alternate;
