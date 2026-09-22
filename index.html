@@ -101,7 +101,38 @@
   /* =========================
    PROJECT X LAUNCH SCREEN
    ========================= */
+.px-marquee{
+  width:100%;
+  overflow:hidden;
+  background:#050509;
+  border-top:2px solid #ff2aa6;
+  border-bottom:2px solid #18e0ff;
+  transform:rotate(-1deg) scale(1.02);
+  margin:12px 0;
+  box-shadow:
+    0 0 20px rgba(255,42,166,.35),
+    0 0 25px rgba(24,224,255,.2);
+}
 
+.px-marquee-track{
+  width:max-content;
+  white-space:nowrap;
+  padding:8px 0;
+  font-weight:900;
+  font-size:14px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  animation:pxMarquee 18s linear infinite;
+}
+
+@keyframes pxMarquee{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-50%);
+  }
+}
 .launch{
   position:fixed;
   inset:0;
@@ -588,6 +619,12 @@
 
   <div class="launch-flash"></div>
 
+</div>
+  <div class="px-marquee">
+  <div class="px-marquee-track">
+    PROJECT X • MEDLOV • 16.10.2026 • NO SLEEP • BEER • MUSIC • CHAOS •
+    PROJECT X • MEDLOV • 16.10.2026 • NO SLEEP • BEER • MUSIC • CHAOS •
+  </div>
 </div>
 <div class="hero-wrap">
 
