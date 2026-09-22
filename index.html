@@ -102,7 +102,10 @@
    PROJECT X LAUNCH SCREEN
    ========================= */
 .px-marquee{
+  position:relative;
+  z-index:10;
   width:100%;
+  height:42px;
   overflow:hidden;
   background:#050509;
   border-top:2px solid #ff2aa6;
@@ -110,18 +113,22 @@
   transform:rotate(-1deg) scale(1.02);
   margin:12px 0;
   box-shadow:
-    0 0 20px rgba(255,42,166,.35),
-    0 0 25px rgba(24,224,255,.2);
+    0 0 20px rgba(255,42,166,.55),
+    0 0 30px rgba(24,224,255,.35);
 }
 
 .px-marquee-track{
   width:max-content;
   white-space:nowrap;
-  padding:8px 0;
+  padding:7px 0;
   font-weight:900;
   font-size:14px;
   letter-spacing:3px;
   text-transform:uppercase;
+  color:#fff;
+  text-shadow:
+    0 0 8px #ff2aa6,
+    0 0 12px #18e0ff;
   animation:pxMarquee 18s linear infinite;
 }
 
