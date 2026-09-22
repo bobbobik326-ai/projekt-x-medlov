@@ -12,10 +12,62 @@
     box-sizing:border-box;
   }
   *,*::before,*::after{box-sizing:inherit}
+  /* =========================================
+   PROJECT X — CHAOS GLOW
+   ========================================= */
+
+body{
+  position:relative;
+  overflow-x:hidden;
+}
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+  filter:blur(90px);
+  opacity:.22;
+  animation:chaosGlow 5s ease-in-out infinite alternate;
+}
+
+body::before{
+  top:10%;
+  left:-220px;
+  background:#ff2aa6;
+}
+
+body::after{
+  bottom:5%;
+  right:-220px;
+  background:#18e0ff;
+  animation-delay:2.5s;
+}
+
+@keyframes chaosGlow{
+  0%{
+    transform:scale(.85);
+    opacity:.12;
+  }
+
+  100%{
+    transform:scale(1.2);
+    opacity:.28;
+  }
+}
   html,body{margin:0;background:var(--bg)}
   body{color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;font-size:16px}
-  .wrap{max-width:640px;margin:0 auto;padding:0 16px calc(110px + env(safe-area-inset-bottom,0px))}
-
+ .wrap{
+  max-width:640px;
+  margin:0 auto;
+  padding:0 16px calc(110px + env(safe-area-inset-bottom,0px));
+  position:relative;
+  z-index:1;
+}
   .hero-wrap{position:relative;overflow:hidden;border-radius:0 0 18px 18px;background:radial-gradient(circle at 50% 35%,#313142 0,#191922 45%,#0f0f14 100%);min-height:230px;display:flex;align-items:center;justify-content:center}
   .hero{
   width:100%;
