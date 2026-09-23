@@ -2205,7 +2205,7 @@
             ========================================= */
 
             setTimeout(() => {
-
+              setTimeout(loadConfirmedCount, 3000);
                 okText.textContent =
                     answer === 'Ano'
                         ? 'Dorazím zapsán! 🎉'
@@ -2485,67 +2485,28 @@
         /* =========================================
            POČET POTVRZENÝCH LIDÍ
         ========================================= */
+function loadConfirmedCount() {
+  const confirmedCount = document.getElementById("confirmedCount");
+  if (!confirmedCount) return;
 
-        function loadConfirmedCount() {
+  const callbackName = "projectXCountCallback_" + Date.now();
+  const script = document.createElement("script");
 
-            const confirmedCount =
-                document.getElementById(
-                    "confirmedCount"
-                );
+  window[callbackName] = function (data) {
+    confirmedCount.textContent = data.count;
+    delete window[callbackName];
+    script.remove();
+  };
 
-
-            if (!confirmedCount) {
-                return;
-            }
-
-
-            const callbackName =
-                "projectXCountCallback_" +
-                Date.now();
-
-
-            window[callbackName] =
-                function (data) {
-
-                    confirmedCount.textContent =
-                        data.count;
-
-                    delete window[
-                        callbackName
-                    ];
-
-                };
-
-
-            const script =
-                document.createElement(
-                    "script"
-                );
-
-
-            script.src =
-                "https://script.google.com/macros/s/AKfycbzD_6gmPP2trvqcQI6lxtdk7cVX4iGp0fX3TEBKxYQApO5NYL10Mmn-E6vhpjd1zSvnpA/exec?callback="
-                + callbackName;
-
-
-            script.onerror =
-                function () {
-
-                    confirmedCount.textContent =
-                        "–";
-
-                    delete window[
-                        callbackName
-                    ];
-
-                };
-
-
-            document.body.appendChild(
-                script
-            );
-
-        }
+  script.src = "https://script.google.com/macros/s/AKfycbxFlUw0SgQTxzXZiIAWE_FjtRTWWpK-rdClHEUyGmDElj5ccPJzKC5lLKcdZ49yHsqqgA/exec" + callbackName + "&t=" + Date.now();
+  script.onerror = function () {
+    confirmedCount.textContent = "–";
+    delete window[callbackName];
+    script.remove();
+  };
+  document.body.appendChild(script);
+}
+    
 
 
         loadConfirmedCount();
