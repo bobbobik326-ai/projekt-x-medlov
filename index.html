@@ -1928,7 +1928,7 @@ function submitRSVP(answer,clickedButton){
   gAnswer.value = answer;
   gNote.value = note;
 
-  googleForm.submit();
+  googleForm.requestSubmit();
 
   okText.textContent =
     answer === 'Ano'
