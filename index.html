@@ -2498,7 +2498,7 @@ function loadConfirmedCount() {
     script.remove();
   };
 
-  script.src = "https://script.google.com/macros/s/AKfycbxFlUw0SgQTxzXZiIAWE_FjtRTWWpK-rdClHEUyGmDElj5ccPJzKC5lLKcdZ49yHsqqgA/exec" + callbackName + "&t=" + Date.now();
+  script.src = "https://script.google.com/macros/s/AKfycbxFlUw0SgQTxzXZiIAWE_FjtRTWWpK-rdClHEUyGmDElj5ccPJzKC5lLKcdZ49yHsqqgA/exec?callback=" + callbackName + "&t=" + Date.now();
   script.onerror = function () {
     confirmedCount.textContent = "–";
     delete window[callbackName];
