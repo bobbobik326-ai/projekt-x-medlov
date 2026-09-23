@@ -1370,6 +1370,28 @@ body::before{
     max-width:100%;
   }
 }
+  .confirmed-box{
+  margin:0 auto 22px;
+  padding:14px 18px;
+  max-width:520px;
+  text-align:center;
+  background:rgba(20,255,120,.06);
+  border:1px solid rgba(20,255,120,.35);
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(20,255,120,.08);
+}
+
+.confirmed-count{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.3px;
+}
+
+.confirmed-sub{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:13px;
+}
 </style>
 </head>
 
@@ -1665,6 +1687,14 @@ body::before{
 
 
   <h2>Dej vědět, jestli přijdeš</h2>
+  <div class="confirmed-box" id="confirmedBox">
+  <div class="confirmed-count">
+    🟢 <span id="confirmedCount">–</span> lidí potvrzeno
+  </div>
+  <div class="confirmed-sub">
+    Projekt X se pomalu plní…
+  </div>
+</div>
 
   <div class="card">
 
@@ -2118,7 +2148,27 @@ body::before{
     runProjectXLaunch();
 
   }
+const confirmedCount = document.getElementById("confirmedCount");
 
+async function loadConfirmedCount(){
+  try {
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbzD_6gmPP2trvqcQI6lxtdk7cVX4iGp0fX3TEBKxYQApO5NYL10Mmn-E6vhpjd1zSvnpA/exec"
+    );
+
+    const data = await response.json();
+
+    confirmedCount.textContent = data.count;
+  } catch (error) {
+    confirmedCount.textContent = "–";
+    console.error("Nepodařilo se načíst počet potvrzených:", error);
+  }
+}
+
+loadConfirmedCount();
+
+// aktualizace každých 60 sekund
+setInterval(loadConfirmedCount, 60000);
 </script>
 
 </body>
