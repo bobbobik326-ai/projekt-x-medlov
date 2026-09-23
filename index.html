@@ -1929,7 +1929,10 @@ function submitRSVP(answer,clickedButton){
   console.log('Poznámka:', gNote.value);
   console.log('Action:', googleForm.action);
 
-  googleForm.submit();
+ const submitFrame = document.querySelector('iframe[name="googleFormFrame"]');
+
+googleForm.target = 'googleFormFrame';
+googleForm.submit();
 
   setTimeout(() => {
 
