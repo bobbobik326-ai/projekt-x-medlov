@@ -2164,12 +2164,12 @@ function loadConfirmedCount() {
   const confirmedCount =
     document.getElementById("confirmedCount");
 
+  if (!confirmedCount) return;
+
   const callbackName =
-    "projectXCountCallback";
+    "projectXCountCallback_" + Date.now();
 
   window[callbackName] = function(data) {
-
-    console.log("Počet potvrzených:", data.count);
 
     confirmedCount.textContent =
       data.count;
@@ -2183,15 +2183,9 @@ function loadConfirmedCount() {
 
   script.src =
     "https://script.google.com/macros/s/AKfycbzD_6gmPP2trvqcQI6lxtdk7cVX4iGp0fX3TEBKxYQApO5NYL10Mmn-E6vhpjd1zSvnpA/exec?callback="
-    + callbackName
-    + "&t="
-    + Date.now();
+    + callbackName;
 
   script.onerror = function() {
-
-    console.error(
-      "Nepodařilo se načíst počet potvrzených."
-    );
 
     confirmedCount.textContent = "–";
 
@@ -2204,10 +2198,7 @@ function loadConfirmedCount() {
 
 loadConfirmedCount();
 
-setInterval(
-  loadConfirmedCount,
-  60000
-);
+setInterval(loadConfirmedCount, 60000);
 </script>
 
 </body>
