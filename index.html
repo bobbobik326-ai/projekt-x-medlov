@@ -2147,20 +2147,8 @@ function loadConfirmedCount() {
 
   window[callbackName] = function(data) {
 
-   confirmedCount.textContent = data.count;
-
-const count = Number(data.count);
-const confirmedText = document.getElementById("confirmedText");
-
-if (confirmedText) {
-  if (count === 1) {
-    confirmedText.textContent = "člověk potvrzen";
-  } else if (count >= 2 && count <= 4) {
-    confirmedText.textContent = "lidé potvrzeni";
-  } else {
-    confirmedText.textContent = "lidí potvrzeno";
-  }
-}
+    confirmedCount.textContent =
+      data.count;
 
     delete window[callbackName];
 
@@ -2170,7 +2158,7 @@ if (confirmedText) {
     document.createElement("script");
 
   script.src =
-   https://script.google.com/macros/s/AKfycbwLTIG1_2WTMQrXRYxINcxdWya6aBsJ_5RF2i_D6PLZyKAhIhor6xajW1WEg5sw8RFK5w/exec
+    "https://script.google.com/macros/s/AKfycbzD_6gmPP2trvqcQI6lxtdk7cVX4iGp0fX3TEBKxYQApO5NYL10Mmn-E6vhpjd1zSvnpA/exec?callback="
     + callbackName;
 
   script.onerror = function() {
