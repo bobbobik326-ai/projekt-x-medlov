@@ -1894,99 +1894,70 @@ body::before{
   }
 
 
-  function submitRSVP(answer,clickedButton){
+function submitRSVP(answer,clickedButton){
 
-    if(locked) return;
+  if(locked) return;
 
+  const name = nameInput.value.trim();
+  const note = noteInput.value.trim();
 
-    const name =
-      nameInput.value.trim();
-
-    const note =
-      noteInput.value.trim();
-
-
-    if(!name){
-
-      nameInput.focus();
-
-      message.textContent =
-        'Nejdřív napiš svoje jméno.';
-
-      message.style.color =
-        'var(--no)';
-
-      shake(nameInput);
-
-      return;
-    }
-
-
-    locked = true;
-
-    btnYes.disabled = true;
-    btnNo.disabled = true;
-
-    clickedButton.classList.add('sending');
-
-    message.textContent =
-      'Odesílám…';
-
-    message.style.color =
-      'var(--muted)';
-
-
-   gName.value = name;
-gAnswer.value = answer;
-gNote.value = note;
-
-fetch(
-  googleForm.action,
-  {
-    method: 'POST',
-    mode: 'no-cors',
-    body: new URLSearchParams({
-      'entry.1876685965': name,
-      'entry.1406329212': answer,
-      'entry.128515211': note
-    })
+  if(!name){
+    nameInput.focus();
+    message.textContent = 'Nejdřív napiš svoje jméno.';
+    message.style.color = 'var(--no)';
+    shake(nameInput);
+    return;
   }
-);
 
-    okText.textContent =
-      answer === 'Ano'
-        ? 'Dorazím zapsán! 🎉'
-        : 'Tvoje odpověď je zapsaná.';
+  locked = true;
 
-    okSub.textContent =
-      answer === 'Ano'
-        ? 'Uvidíme se v Medlově ❤️'
-        : 'Díky za zprávu ❤️';
+  btnYes.disabled = true;
+  btnNo.disabled = true;
 
+  clickedButton.classList.add('sending');
 
-    overlay.classList.add('show');
+  message.textContent = 'Odesílám…';
+  message.style.color = 'var(--muted)';
 
+  /*
+    Google Forms:
+    Ano = Ano
+    Ne = ne
+  */
+  gName.value = name;
+  gAnswer.value = answer;
+  gNote.value = note;
 
-    setTimeout(() => {
+  googleForm.submit();
 
-      overlay.classList.remove('show');
+  okText.textContent =
+    answer === 'Ano'
+      ? 'Dorazím zapsán! 🎉'
+      : 'Tvoje odpověď je zapsaná.';
 
-      message.textContent =
-        'Odpověď byla odeslána.';
+  okSub.textContent =
+    answer === 'Ano'
+      ? 'Uvidíme se v Medlově ❤️'
+      : 'Díky za zprávu ❤️';
 
-      message.style.color =
-        'var(--yes)';
+  overlay.classList.add('show');
 
-      clickedButton.classList.remove('sending');
+  setTimeout(() => {
 
-      btnYes.disabled = false;
-      btnNo.disabled = false;
+    overlay.classList.remove('show');
 
-      locked = false;
+    message.textContent = 'Odpověď byla odeslána.';
+    message.style.color = 'var(--yes)';
 
-    },2600);
+    clickedButton.classList.remove('sending');
 
-  }
+    btnYes.disabled = false;
+    btnNo.disabled = false;
+
+    locked = false;
+
+  },2600);
+}
 
 
  btnYes.addEventListener(
