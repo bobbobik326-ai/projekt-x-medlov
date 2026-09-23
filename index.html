@@ -1978,20 +1978,16 @@ googleForm.submit();
   }
 
 
-  btnYes.addEventListener(
-    'click',
-    () => submitRSVP('Ano',btnYes)
-  );
+ btnYes.addEventListener(
+  'click',
+  () => submitRSVP('Ano',btnYes)
+);
 
 
 btnNo.addEventListener(
   'click',
-  () => {
-    console.log('Odesílám odpověď:', 'ne');
-    submitRSVP('ne', btnNo);
-  }
+  () => submitRSVP('Ne',btnNo)
 );
-
 
   nameInput.addEventListener(
     'keydown',
