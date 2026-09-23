@@ -1936,11 +1936,22 @@ body::before{
       'var(--muted)';
 
 
-    gName.value = name;
+   gName.value = name;
 gAnswer.value = answer;
 gNote.value = note;
 
-googleForm.submit();
+fetch(
+  googleForm.action,
+  {
+    method: 'POST',
+    mode: 'no-cors',
+    body: new URLSearchParams({
+      'entry.1876685965': name,
+      'entry.1406329212': answer,
+      'entry.128515211': note
+    })
+  }
+);
 
     okText.textContent =
       answer === 'Ano'
