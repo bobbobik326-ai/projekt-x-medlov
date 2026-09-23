@@ -2151,17 +2151,57 @@ body::before{
     runProjectXLaunch();
 
   }
-const confirmedCount = document.getElementById("confirmedCount");
+function loadConfirmedCount() {
 
-fetch("https://script.google.com/macros/s/AKfycbzD_6gmPP2trvqcQI6lxtdk7cVX4iGp0fX3TEBKxYQApO5NYL10Mmn-E6vhpjd1zSvnpA/exec")
-  .then(response => response.json())
-  .then(data => {
-    confirmedCount.textContent = data.count;
-  })
-  .catch(error => {
-    console.error(error);
-    confirmedCount.textContent = "–";
-  });
+  const confirmedCount =
+    document.getElementById("confirmedCount");
+
+  const callbackName =
+    "projectXCountCallback";
+
+  window[callbackName] = function(data) {
+
+    confirmedCount.textContent =
+      data.count;
+
+    delete window[callbackName];
+
+    if(script){
+      script.remove();
+    }
+
+  };
+
+  const script =
+    document.createElement("script");
+
+  script.src =
+    "https://script.google.com/macros/s/AKfycbzD_6gmPP2trvqcQI6lxtdk7cVX4iGp0fX3TEBKxYQApO5NYL10Mmn-E6vhpjd1zSvnpA/exec?callback="
+    + callbackName
+    + "&t="
+    + Date.now();
+
+  script.onerror = function(){
+
+    confirmedCount.textContent =
+      "–";
+
+    delete window[callbackName];
+
+    script.remove();
+
+  };
+
+  document.body.appendChild(script);
+}
+
+
+loadConfirmedCount();
+
+setInterval(
+  loadConfirmedCount,
+  60000
+);
 </script>
 
 </body>
