@@ -2161,14 +2161,12 @@ function loadConfirmedCount() {
 
   window[callbackName] = function(data) {
 
+    console.log("Počet potvrzených:", data.count);
+
     confirmedCount.textContent =
       data.count;
 
     delete window[callbackName];
-
-    if(script){
-      script.remove();
-    }
 
   };
 
@@ -2181,20 +2179,20 @@ function loadConfirmedCount() {
     + "&t="
     + Date.now();
 
-  script.onerror = function(){
+  script.onerror = function() {
 
-    confirmedCount.textContent =
-      "–";
+    console.error(
+      "Nepodařilo se načíst počet potvrzených."
+    );
+
+    confirmedCount.textContent = "–";
 
     delete window[callbackName];
-
-    script.remove();
 
   };
 
   document.body.appendChild(script);
 }
-
 
 loadConfirmedCount();
 
