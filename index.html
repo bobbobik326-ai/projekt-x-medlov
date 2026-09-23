@@ -1919,28 +1919,33 @@ function submitRSVP(answer,clickedButton){
   message.textContent = 'Odesílám…';
   message.style.color = 'var(--muted)';
 
-  /*
-    Google Forms:
-    Ano = Ano
-    Ne = ne
-  */
   gName.value = name;
   gAnswer.value = answer;
   gNote.value = note;
 
-  googleForm.submit()
+  console.log('ODESÍLÁM DO GOOGLE FORMS');
+  console.log('Jméno:', gName.value);
+  console.log('Odpověď:', gAnswer.value);
+  console.log('Poznámka:', gNote.value);
+  console.log('Action:', googleForm.action);
 
-  okText.textContent =
-    answer === 'Ano'
-      ? 'Dorazím zapsán! 🎉'
-      : 'Tvoje odpověď je zapsaná.';
+  googleForm.submit();
 
-  okSub.textContent =
-    answer === 'Ano'
-      ? 'Uvidíme se v Medlově ❤️'
-      : 'Díky za zprávu ❤️';
+  setTimeout(() => {
 
-  overlay.classList.add('show');
+    okText.textContent =
+      answer === 'Ano'
+        ? 'Dorazím zapsán! 🎉'
+        : 'Tvoje odpověď je zapsaná.';
+
+    okSub.textContent =
+      answer === 'Ano'
+        ? 'Uvidíme se v Medlově ❤️'
+        : 'Díky za zprávu ❤️';
+
+    overlay.classList.add('show');
+
+  },300);
 
   setTimeout(() => {
 
@@ -1956,9 +1961,8 @@ function submitRSVP(answer,clickedButton){
 
     locked = false;
 
-  },2600);
+  },2900);
 }
-
 
  btnYes.addEventListener(
   'click',
