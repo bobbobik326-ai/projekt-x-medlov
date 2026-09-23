@@ -1691,8 +1691,8 @@ body::before{
 
 <div class="confirmed-box" id="confirmedBox">
   <div class="confirmed-count">
-    🟢 <span id="confirmedCount">Načítám…</span> lidí potvrzeno
-  </div>
+  🟢 <span id="confirmedCount">Načítám…</span> <span id="confirmedText">lidí potvrzeno</span>
+</div>
   <div class="confirmed-sub">
     Projekt X se pomalu plní…
   </div>
@@ -2147,8 +2147,20 @@ function loadConfirmedCount() {
 
   window[callbackName] = function(data) {
 
-    confirmedCount.textContent =
-      data.count;
+   confirmedCount.textContent = data.count;
+
+const count = Number(data.count);
+const confirmedText = document.getElementById("confirmedText");
+
+if (confirmedText) {
+  if (count === 1) {
+    confirmedText.textContent = "člověk potvrzen";
+  } else if (count >= 2 && count <= 4) {
+    confirmedText.textContent = "lidé potvrzeni";
+  } else {
+    confirmedText.textContent = "lidí potvrzeno";
+  }
+}
 
     delete window[callbackName];
 
